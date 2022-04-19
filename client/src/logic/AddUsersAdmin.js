@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import { Grid, Container, Typography } from "@mui/material";
 import TextfieldWrapper from "../components/FormsUI/Textfield";
 import SelectWrapper from "../components/FormsUI/Select";
 import CheckboxWrapper from "../components/FormsUI/Checkbox";
 import ButtonWrapper from "../components/FormsUI/Button";
-import roles from "../data/roles.json";
+import role from "../data/roles.json";
+import { ethers } from "ethers";
+import supplychainUserABI from "../contracts/SupplyChainUser.json";
+
+const CoffeeSupplyChainAddress = "0xB103004b86BC26dCB6eB0e87C5B9877929d68298";
+const SupplyChainUserAddress = "0x9719E9dC77A7eDD3825844c77a68c896d4a7BB2b";
 
 const INITIAL_FORM_USER_STATE = {
 	userAddress: "",
@@ -40,6 +45,40 @@ const AddUsersAdmin = () => {
 		profileHash: "-",
 	});
 
+	const handleSubmit = async (values) => {
+		//console.log(values);
+		console.log(values["userAddress"]);
+		console.log(values["name"]);
+		console.log(values["role"]);
+		console.log(values["contactNo"]);
+		console.log(values["isActive"]);
+		console.log(values["profileHash"]);
+
+		const provider = new ethers.providers.Web3Provider(window.ethereum);
+		await provider.send("eth_requestAccounts", []);
+		const signer = await provider.getSigner();
+		const erc20 = new ethers.Contract(
+			SupplyChainUserAddress,
+			supplychainUserABI.abi,
+			signer
+		);
+		setUserInfo({
+			userAddress: values["userAddress"],
+			name: values["name"],
+			contactNo: values["contactNo"],
+			role: values["role"],
+			isActive: values["isActive"],
+			profileHash: values["profileHash"],
+		});
+		await erc20.updateUserForAdmin(
+			values["userAddress"],
+			values["name"],
+			values["contactNo"],
+			values["role"],
+			values["isActive"],
+			values["profileHash"]
+		);
+	};
 	return (
 		<Grid container>
 			<Grid item xs={12}>
@@ -51,8 +90,7 @@ const AddUsersAdmin = () => {
 							}}
 							validationSchema={FORM_USER_VALIDATION}
 							onSubmit={(values) => {
-								console.log(values);
-								// console.log(values["city"]);
+								handleSubmit(values);
 							}}
 						>
 							<Form>
@@ -70,7 +108,7 @@ const AddUsersAdmin = () => {
 										<TextfieldWrapper name="contactNo" label="Contact No" />
 									</Grid>
 									<Grid item xs={6}>
-										<SelectWrapper name="roles" label="Roles" options={roles} />
+										<SelectWrapper name="role" label="Role" options={role} />
 									</Grid>
 									<Grid item xs={6}>
 										<TextfieldWrapper name="profileHash" label="Profile Hash" />

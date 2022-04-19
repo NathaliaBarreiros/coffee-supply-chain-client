@@ -1,7 +1,8 @@
 import React from "react";
 import Login from "./components/Login";
-import DetectAdmin from "./logic/DetectAdmin";
+
 import AddUsersAdmin from "./logic/AddUsersAdmin";
+import GetOwner from "./logic/GetOwner";
 
 import supplychainStorageABI from "./contracts/SupplyChainStorage.json";
 import supplychainUserABI from "./contracts/SupplyChainUser.json";
@@ -14,6 +15,7 @@ function App() {
 	return (
 		<div>
 			<Login />
+			<GetOwner />
 			<AddUsersAdmin />
 		</div>
 	);
