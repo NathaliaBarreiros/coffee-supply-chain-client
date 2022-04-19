@@ -28,17 +28,6 @@ const CreateUserAdmin = () => {
 		return "no";
 	}
 
-	// requestAccount();
-
-	// useEffect(() => {
-	// 	console.log("AQUI");
-	// 	requestAccount();
-	// 	// console.log("ENTRE");
-	// 	// const isEqual = () =>
-	// 	// 	walletAddress.toUpperCase() === adminAddress.toUpperCase() ? "YES" : "NO";
-	// 	// console.log(isEqual());
-	// }, [walletAddress, requestAccount]);
-
 	// const isEqual = () =>
 	// 	walletAddress.toUpperCase() === adminAddress.toUpperCase() ? "YES" : "NO";
 	// console.log(isEqual());

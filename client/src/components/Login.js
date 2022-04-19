@@ -5,13 +5,13 @@ import theme from "../styles/Styles";
 import useProvider from "../hooks/useProvider";
 
 const Login = () => {
-	const [
+	const {
 		walletAddress,
 		errorMessage,
 		connButtonText,
 		connectWalletHandler,
 		handleClickMetamask,
-	] = useProvider();
+	} = useProvider();
 
 	return (
 		<ThemeProvider theme={theme}>

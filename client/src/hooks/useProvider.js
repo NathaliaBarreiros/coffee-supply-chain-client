@@ -6,6 +6,7 @@ const useProvider = () => {
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [walletAddress, setWalletAddress] = useState(null);
 	const [connButtonText, setConnButtonText] = useState("Connect Wallet");
+	const [isAdmin, setIsAdmin] = useState(null);
 
 	const connectWalletHandler = async () => {
 		if (window.ethereum && window.ethereum.isMetaMask) {
@@ -16,7 +17,7 @@ const useProvider = () => {
 				});
 				accountChangedHandler(accounts[0]);
 				setConnButtonText("Wallet Connected");
-				//adminHandler(accounts[0]);
+				adminHandler(accounts[0]);
 			} catch (error) {
 				setErrorMessage(error.message);
 			}
@@ -28,6 +29,14 @@ const useProvider = () => {
 
 	const accountChangedHandler = (newAccount) => {
 		setWalletAddress(newAccount);
+	};
+
+	const adminHandler = (newAccount) => {
+		if (newAccount.toString().toUpperCase() === adminAddress.toUpperCase()) {
+			setIsAdmin(true);
+		} else {
+			setIsAdmin(false);
+		}
 	};
 
 	const chainChangedHandler = () => {
@@ -47,13 +56,16 @@ const useProvider = () => {
 	window.removeEventListener("accountsChanged", accountChangedHandler);
 	window.removeEventListener("chainChanged", chainChangedHandler);
 
-	return [
+	// console.log(isAdmin);
+
+	return {
 		walletAddress,
 		errorMessage,
 		connButtonText,
 		connectWalletHandler,
 		handleClickMetamask,
-	];
+		isAdmin,
+	};
 };
 
 export default useProvider;
