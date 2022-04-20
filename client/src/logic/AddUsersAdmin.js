@@ -93,38 +93,57 @@ const AddUsersAdmin = () => {
 								handleSubmit(values);
 							}}
 						>
-							<Form>
-								<Grid container spacing={2}>
-									<Grid item xs={12}>
-										<Typography>Add User Details</Typography>
-									</Grid>
-									<Grid item xs={6}>
-										<TextfieldWrapper name="userAddress" label="User Address" />
-									</Grid>
-									<Grid item xs={6}>
-										<TextfieldWrapper name="name" label="Name" />
-									</Grid>
-									<Grid item xs={6}>
-										<TextfieldWrapper name="contactNo" label="Contact No" />
-									</Grid>
-									<Grid item xs={6}>
-										<SelectWrapper name="role" label="Role" options={role} />
-									</Grid>
-									<Grid item xs={6}>
-										<TextfieldWrapper name="profileHash" label="Profile Hash" />
-									</Grid>
-									<Grid item xs={6}>
-										<CheckboxWrapper
-											name="isActive"
-											legend="Activity"
-											label="Active User"
-										/>
-									</Grid>
-									<Grid item xs={12}>
-										<ButtonWrapper>Submit</ButtonWrapper>
-									</Grid>
-								</Grid>
-							</Form>
+							{({ dirty, isValid }) => {
+								return (
+									<Form>
+										<Grid container spacing={2}>
+											<Grid item xs={12}>
+												<Typography>Add User Details</Typography>
+											</Grid>
+											<Grid item xs={6}>
+												<TextfieldWrapper
+													name="userAddress"
+													label="User Address"
+												/>
+											</Grid>
+											<Grid item xs={6}>
+												<TextfieldWrapper name="name" label="Name" />
+											</Grid>
+											<Grid item xs={6}>
+												<TextfieldWrapper name="contactNo" label="Contact No" />
+											</Grid>
+											<Grid item xs={6}>
+												<SelectWrapper
+													name="role"
+													label="Role"
+													options={role}
+												/>
+											</Grid>
+											<Grid item xs={6}>
+												<TextfieldWrapper
+													name="profileHash"
+													label="Profile Hash"
+												/>
+											</Grid>
+											<Grid item xs={6}>
+												<CheckboxWrapper
+													name="isActive"
+													legend="Activity"
+													label="Active User"
+												/>
+											</Grid>
+											<Grid item xs={12}>
+												<ButtonWrapper
+													disabled={!dirty || !isValid}
+													type="submit"
+												>
+													Submit
+												</ButtonWrapper>
+											</Grid>
+										</Grid>
+									</Form>
+								);
+							}}
 						</Formik>
 					</div>
 				</Container>

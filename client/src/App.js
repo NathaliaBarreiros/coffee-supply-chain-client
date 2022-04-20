@@ -4,6 +4,8 @@ import Login from "./components/Login";
 import AddUsersAdmin from "./logic/AddUsersAdmin";
 import GetOwner from "./logic/GetOwner";
 
+import FormUser from "./logic/FormUser";
+
 import supplychainStorageABI from "./contracts/SupplyChainStorage.json";
 import supplychainUserABI from "./contracts/SupplyChainUser.json";
 import coffeeSupplychainABI from "./contracts/CoffeeSupplyChain.json";
@@ -17,6 +19,7 @@ function App() {
 			<Login />
 			<GetOwner />
 			<AddUsersAdmin />
+			<FormUser />
 		</div>
 	);
 }
