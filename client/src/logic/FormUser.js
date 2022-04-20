@@ -79,7 +79,7 @@ const FormUser = () => {
 							validationSchema={valSchema}
 							onSubmit={handlerSubmit}
 						>
-							{({ dirty, isValid, touched }) => {
+							{({ dirty, isValid }) => {
 								return (
 									<Form>
 										<Grid container spacing={2}>

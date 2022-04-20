@@ -3,6 +3,7 @@ import Login from "./components/Login";
 
 import AddUsersAdmin from "./logic/AddUsersAdmin";
 import GetOwner from "./logic/GetOwner";
+import AddFarmDetails from "./logic/AddFarmDetails";
 
 import FormUser from "./logic/FormUser";
 
@@ -20,6 +21,7 @@ function App() {
 			<GetOwner />
 			<AddUsersAdmin />
 			<FormUser />
+			<AddFarmDetails />
 		</div>
 	);
 }
