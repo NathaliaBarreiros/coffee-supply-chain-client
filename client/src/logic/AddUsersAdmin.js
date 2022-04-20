@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import React, { useState, useEffect } from "react";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Grid, Container, Typography } from "@mui/material";
 import TextfieldWrapper from "../components/FormsUI/Textfield";
@@ -44,6 +44,39 @@ const AddUsersAdmin = () => {
 		isActive: false,
 		profileHash: "-",
 	});
+	const [userRegistered, setUserRegistered] = useState([]);
+
+	useEffect(() => {
+		// listener del evento "UserUpdate", cuando ya se registra en la blockchain
+		const provider = new ethers.providers.Web3Provider(window.ethereum);
+		const signer = provider.getSigner();
+		const erc20 = new ethers.Contract(
+			SupplyChainUserAddress,
+			supplychainUserABI.abi,
+			signer
+		);
+		erc20.on(
+			"UserUpdate",
+			(user, name, contactNo, role, isActive, profileHash) => {
+				console.log("EVENTO: ");
+				console.log({ user, name, contactNo, role, isActive, profileHash });
+				setUserRegistered((currentData) => [
+					...currentData,
+					{
+						user,
+						name,
+						contactNo,
+						role,
+						isActive,
+						profileHash,
+					},
+				]);
+			}
+		);
+		return () => {
+			erc20.removeAllListeners("UserUpdate");
+		};
+	}, []);
 
 	const handleSubmit = async (values) => {
 		//console.log(values);
@@ -149,15 +182,6 @@ const AddUsersAdmin = () => {
 				</Container>
 			</Grid>
 		</Grid>
-
-		// 	<h2>AddUsersAdmin</h2>
-		// 	<p>{userInfo.userAddress}</p>
-		// 	<p>{userInfo.name}</p>
-		// 	<p>{userInfo.contactNo}</p>
-		// 	<p>{userInfo.role}</p>
-		// 	<p>{userInfo.isActive.toString()}</p>
-		// 	<p>{userInfo.profileHash}</p>
-		// </div>
 	);
 };
 

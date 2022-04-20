@@ -3,8 +3,6 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikField from "../components/FormikMUI/FormikField";
 import { Button, Container, Grid, Typography } from "@mui/material";
-import FormikSelect from "../components/FormikMUI/FormikSelect";
-import FormikCheckbox from "../components/FormikMUI/FormikCheckbox";
 import { ethers } from "ethers";
 import coffeeSupplychainABI from "../contracts/CoffeeSupplyChain.json";
 
