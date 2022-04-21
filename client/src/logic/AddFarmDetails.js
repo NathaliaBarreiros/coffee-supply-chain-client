@@ -96,7 +96,9 @@ const AddFarmDetails = () => {
 						<Formik
 							initialValues={initialValues}
 							validationSchema={valSchema}
-							onSubmit={handleSubmit}
+							onSubmit={(values) => {
+								handleSubmit(values);
+							}}
 						>
 							{({ dirty, isValid }) => {
 								return (

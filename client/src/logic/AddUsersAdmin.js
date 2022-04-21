@@ -88,7 +88,7 @@ const AddUsersAdmin = () => {
 		console.log(values["profileHash"]);
 
 		const provider = new ethers.providers.Web3Provider(window.ethereum);
-		await provider.send("eth_requestAccounts", []);
+		//await provider.send("eth_requestAccounts", []);
 		const signer = await provider.getSigner();
 		const erc20 = new ethers.Contract(
 			SupplyChainUserAddress,
@@ -112,6 +112,7 @@ const AddUsersAdmin = () => {
 			values["profileHash"]
 		);
 	};
+
 	return (
 		<Grid container>
 			<Grid item xs={12}>
