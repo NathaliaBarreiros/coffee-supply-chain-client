@@ -5,6 +5,7 @@ import {
 	Switch,
 	TextField,
 	Typography,
+	Button,
 } from "@mui/material";
 import { useState, useEffect, useCallback } from "react";
 import { ethers } from "ethers";
@@ -30,9 +31,9 @@ const CreateUserAdmin = () => {
 
 	return (
 		<div>
-			<button onClick={askOwner} type="submit">
+			<Button onClick={askOwner} type="submit">
 				Get Owner
-			</button>
+			</Button>
 		</div>
 	);
 };
