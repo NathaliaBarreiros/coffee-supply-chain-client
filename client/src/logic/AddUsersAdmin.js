@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { Grid, Container, Typography } from "@mui/material";
+import { Grid, Container, Typography, Button } from "@mui/material";
 import TextfieldWrapper from "../components/FormsUI/Textfield";
 import SelectWrapper from "../components/FormsUI/Select";
 import CheckboxWrapper from "../components/FormsUI/Checkbox";
@@ -167,12 +167,15 @@ const AddUsersAdmin = () => {
 												/>
 											</Grid>
 											<Grid item xs={12}>
-												<ButtonWrapper
+												<Button
+													fullWidth
+													variant="contained"
 													disabled={!dirty || !isValid}
 													type="submit"
 												>
-													Submit
-												</ButtonWrapper>
+													{" "}
+													SUBMIT
+												</Button>
 											</Grid>
 										</Grid>
 									</Form>
