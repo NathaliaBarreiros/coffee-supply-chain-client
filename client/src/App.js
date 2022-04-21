@@ -11,6 +11,8 @@ import GetUser from "./logic/GetUser";
 
 import AddHarvestData from "./logic/AddHarvestData";
 
+import AddProcessData from "./logic/AddProcessData";
+
 import supplychainStorageABI from "./contracts/SupplyChainStorage.json";
 import supplychainUserABI from "./contracts/SupplyChainUser.json";
 import coffeeSupplychainABI from "./contracts/CoffeeSupplyChain.json";
@@ -28,6 +30,7 @@ function App() {
 			<AddFarmDetails />
 			<GetUser />
 			<AddHarvestData />
+			<AddProcessData />
 		</div>
 	);
 }
