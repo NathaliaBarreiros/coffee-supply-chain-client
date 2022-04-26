@@ -7,7 +7,7 @@ const SupplyChainUserAddress = "0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE";
 
 const GetUser = () => {
 	const [userInfo, setUserInfo] = useState({
-		userAddress: "",
+		//userAddress: "",
 		name: "",
 		email: "",
 		role: "",
@@ -32,25 +32,15 @@ const GetUser = () => {
 		try {
 			const user = await erc20.callStatic.getUser(account[0]);
 			console.log(user);
-			// const { userAddress, name, email, role, isActive, profileHash } =
-			// 	await erc20.getUser(account[0]);
-			// setUserInfo({
-			// 	userAddress: userAddress,
-			// 	name: name,
-			// 	email: email,
-			// 	role: role,
-			// 	isActive: isActive,
-			// 	profileHash: profileHash,
-			// });
-			// console.log(userInfo);
-			// console.log({
-			// 	userAddress,
-			// 	name,
-			// 	email,
-			// 	role,
-			// 	isActive,
-			// 	profileHash,
-			// });
+			setUserInfo({
+				//userAddress: user["userAddress"],
+				name: user["name"],
+				email: user["email"],
+				role: user["role"],
+				isActive: user["isActive"],
+				profileHash: user["profileHash"],
+			});
+			console.log("AQUI", userInfo);
 		} catch (error) {
 			console.log("ERROR AT GETTING USER: ", error);
 		}
