@@ -9,7 +9,7 @@ const GetUser = () => {
 	const [userInfo, setUserInfo] = useState({
 		userAddress: "",
 		name: "",
-		contactNo: "",
+		email: "",
 		role: "",
 		isActive: "",
 		profileHash: "",
@@ -30,14 +30,14 @@ const GetUser = () => {
 		console.log(account[0]);
 
 		try {
-			const user = await erc20.getUser(account[0]);
+			const user = await erc20.callStatic.getUser(account[0]);
 			console.log(user);
-			// const { userAddress, name, contactNo, role, isActive, profileHash } =
+			// const { userAddress, name, email, role, isActive, profileHash } =
 			// 	await erc20.getUser(account[0]);
 			// setUserInfo({
 			// 	userAddress: userAddress,
 			// 	name: name,
-			// 	contactNo: contactNo,
+			// 	email: email,
 			// 	role: role,
 			// 	isActive: isActive,
 			// 	profileHash: profileHash,
@@ -46,7 +46,7 @@ const GetUser = () => {
 			// console.log({
 			// 	userAddress,
 			// 	name,
-			// 	contactNo,
+			// 	email,
 			// 	role,
 			// 	isActive,
 			// 	profileHash,

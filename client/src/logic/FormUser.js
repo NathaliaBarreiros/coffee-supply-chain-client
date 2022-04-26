@@ -9,7 +9,7 @@ import FormikCheckbox from "../components/FormikMUI/FormikCheckbox";
 const initialValues = {
 	userAddress: "",
 	name: "",
-	contactNo: "",
+	email: "",
 	role: "",
 	isActive: false,
 	profileHash: "",
@@ -22,7 +22,7 @@ const valSchema = Yup.object().shape({
 		.min(42),
 
 	name: Yup.string().required("Requerido").min(2, "Ingresa el nombre completo"),
-	contactNo: Yup.string().required("Requerido"),
+	email: Yup.string().required("Requerido"),
 	role: Yup.string().required("Requerido"),
 	isActive: Yup.boolean().required("requerido"),
 	profileHash: Yup.string(),
@@ -95,11 +95,7 @@ const FormUser = () => {
 											</Grid>
 
 											<Grid item xs={6}>
-												<FormikField
-													name="contactNo"
-													label="Contact No"
-													required
-												/>
+												<FormikField name="email" label="Contact No" required />
 											</Grid>
 
 											<Grid item xs={6}>
