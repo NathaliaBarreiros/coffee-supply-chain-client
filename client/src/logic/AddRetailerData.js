@@ -6,24 +6,20 @@ import { Grid, Container, Typography, Button } from "@mui/material";
 import TextfieldWrapper from "../components/FormsUI/Textfield";
 import SelectWrapper from "../components/FormsUI/Select";
 import DateTimePicker from "../components/FormsUI/DateTimePicker";
-import typeDrying from "../data/typeDrying.json";
-import typeRoasting from "../data/typeRoasting.json";
 
 import coffeeSupplychainABI from "../contracts/CoffeeSupplyChain.json";
 
 const CoffeeSupplyChainAddress = "0xa108A7C2e0417aF523eadFA4Cf628126BEFB0534";
-const SupplyChainUserAddress = "0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE";
 
 const initialValues = {
 	batchNo: "",
-	procAddress: "",
-	typeOfDrying: "",
-	roastImageHash: "",
-	roastTemp: "",
-	typeOfRoast: "",
-	roastDate: "",
-	millDate: "",
-	processorPrice: "",
+	arrivalDateW: "",
+	arrivalDateSP: "",
+	warehouseName: "",
+	warehouseAddress: "",
+	salePointAddress: "",
+	shipPriceSP: "",
+	productPrice: "",
 };
 
 const valSchema = Yup.object().shape({
@@ -31,31 +27,32 @@ const valSchema = Yup.object().shape({
 		.required("Requerido")
 		.max(42, "La direccion debe tener maximo 42 caracteres")
 		.min(42),
-	procAddress: Yup.string().required("Requerido"),
-	typeOfDrying: Yup.string().required("Requerido"),
-	roastImageHash: Yup.string().required("Requerido"),
-	roastTemp: Yup.string().required("Requerido"),
-	typeOfRoast: Yup.string().required("Requerido"),
-	roastDate: Yup.date().required("Requerido"),
-	millDate: Yup.date().required("Requerido"),
-	processorPrice: Yup.number()
+	arrivalDateW: Yup.date().required("Requerido"),
+	arrivalDateSP: Yup.date().required("Requerido"),
+	warehouseName: Yup.string().required("Requerido"),
+	warehouseAddress: Yup.string().required("Requerido"),
+	salePointAddress: Yup.string().required("Requerido"),
+	shipPriceSP: Yup.number()
+		.typeError("Por favor ingrese un precio correcto")
+		.required("Requerido"),
+	productPrice: Yup.number()
 		.typeError("Por favor ingrese un precio correcto")
 		.required("Requerido"),
 });
 
-const AddProcessData = () => {
-	const [processData, setProcessData] = useState({
+const AddRetailerData = () => {
+	const [retailerData, setRetailerData] = useState({
 		batchNo: "-",
-		procAddress: "-",
-		typeOfDrying: "-",
-		roastImageHash: "-",
-		roastTemp: "-",
-		typeOfRoast: "-",
-		roastDate: "-",
-		millDate: "-",
-		processorPrice: "-",
+		arrivalDateW: "-",
+		arrivalDateSP: "-",
+		warehouseName: "-",
+		warehouseAddress: "-",
+		salePointAddress: "-",
+		shipPriceSP: "-",
+		productPrice: "-",
 	});
-	const [processRegistered, setProcessRegistered] = useState([]);
+
+	const [retailerRegistered, setRetailerRegistered] = useState([]);
 
 	useEffect(() => {
 		const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -65,9 +62,9 @@ const AddProcessData = () => {
 			coffeeSupplychainABI.abi,
 			signer
 		);
-		erc20.on("DoneProcessing", (user, batchNo) => {
+		erc20.on("DoneRetailer", (user, batchNo) => {
 			console.log({ user, batchNo });
-			setProcessRegistered((currentData) => [
+			setRetailerRegistered((currentData) => [
 				...currentData,
 				{
 					user,
@@ -76,7 +73,7 @@ const AddProcessData = () => {
 			]);
 		});
 		return () => {
-			erc20.removeAllListeners("DoneProcessing");
+			erc20.removeAllListeners("DoneRetailer");
 		};
 	}, []);
 
@@ -90,27 +87,25 @@ const AddProcessData = () => {
 			coffeeSupplychainABI.abi,
 			signer
 		);
-		setProcessData({
+		setRetailerData({
 			batchNo: values["batchNo"],
-			procAddress: values["procAddress"],
-			typeOfDrying: values["typeOfDrying"],
-			roastImageHash: values["roastImageHash"],
-			roastTemp: values["roastTemp"],
-			typeOfRoast: values["typeOfRoast"],
-			roastDate: values["roastDate"],
-			millDate: values["millDate"],
-			processorPrice: values["processorPrice"],
+			arrivalDateW: values["arrivalDateW"],
+			arrivalDateSP: values["arrivalDateSP"],
+			warehouseName: values["warehouseName"],
+			warehouseAddress: values["warehouseAddress"],
+			salePointAddress: values["salePointAddress"],
+			shipPriceSP: values["shipPriceSP"],
+			productPrice: values["productPrice"],
 		});
-		await erc20.addProcessData(
+		await erc20.addRetailerData(
 			values["batchNo"],
-			values["procAddress"],
-			values["typeOfDrying"],
-			values["roastImageHash"],
-			values["roastTemp"],
-			values["typeOfRoast"],
-			values["roastDate"],
-			values["millDate"],
-			values["processorPrice"]
+			values["arrivalDateW"],
+			values["arrivalDateSP"],
+			values["warehouseName"],
+			values["warehouseAddress"],
+			values["salePointAddress"],
+			values["shipPriceSP"],
+			values["productPrice"]
 		);
 	};
 
@@ -131,53 +126,51 @@ const AddProcessData = () => {
 									<Form>
 										<Grid container spacing={2}>
 											<Grid item xs={12}>
-												<Typography>Add Process Data</Typography>
+												<Typography>Add Retailer Data</Typography>
 											</Grid>
 											<Grid item xs={6}>
 												<TextfieldWrapper name="batchNo" label="Batch No" />
 											</Grid>
 											<Grid item xs={6}>
-												<TextfieldWrapper
-													name="procAddress"
-													label="Processor Address"
+												<DateTimePicker
+													name="arrivalDateW"
+													label="Arrival Date at Warehouse"
 												/>
 											</Grid>
 											<Grid item xs={6}>
-												<SelectWrapper
-													name="typeOfDrying"
-													label="Type Of Drying"
-													options={typeDrying}
-												/>
-											</Grid>
-											<Grid item xs={6}>
-												<TextfieldWrapper
-													name="roastImageHash"
-													label="Roasting Image Hash"
+												<DateTimePicker
+													name="arrivalDateSP"
+													label="Arrival Date at Sale Point"
 												/>
 											</Grid>
 											<Grid item xs={6}>
 												<TextfieldWrapper
-													name="roastTemp"
-													label="Roasting Temperature"
+													name="warehouseName"
+													label="Warehouse Name"
 												/>
-											</Grid>
-											<Grid item xs={6}>
-												<SelectWrapper
-													name="typeOfRoast"
-													label="Type Of Roasting"
-													options={typeRoasting}
-												/>
-											</Grid>
-											<Grid item xs={6}>
-												<DateTimePicker name="roastDate" label="Roast Date" />
-											</Grid>
-											<Grid item xs={6}>
-												<DateTimePicker name="millDate" label="Mill Date" />
 											</Grid>
 											<Grid item xs={6}>
 												<TextfieldWrapper
-													name="processorPrice"
-													label="Processor Price"
+													name="warehouseAddress"
+													label="Warehouse Address"
+												/>
+											</Grid>
+											<Grid item xs={6}>
+												<TextfieldWrapper
+													name="Sale Point Address"
+													label="Sale Point Address"
+												/>
+											</Grid>
+											<Grid item xs={6}>
+												<TextfieldWrapper
+													name="shipPriceSP"
+													label="Shipment Price"
+												/>
+											</Grid>
+											<Grid item xs={6}>
+												<TextfieldWrapper
+													name="productPrice"
+													label="Product Price"
 												/>
 											</Grid>
 											<Grid item xs={12}>
@@ -203,4 +196,4 @@ const AddProcessData = () => {
 	);
 };
 
-export default AddProcessData;
+export default AddRetailerData;

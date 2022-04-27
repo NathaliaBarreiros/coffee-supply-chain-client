@@ -6,24 +6,17 @@ import { Grid, Container, Typography, Button } from "@mui/material";
 import TextfieldWrapper from "../components/FormsUI/Textfield";
 import SelectWrapper from "../components/FormsUI/Select";
 import DateTimePicker from "../components/FormsUI/DateTimePicker";
-import typeDrying from "../data/typeDrying.json";
-import typeRoasting from "../data/typeRoasting.json";
 
 import coffeeSupplychainABI from "../contracts/CoffeeSupplyChain.json";
 
 const CoffeeSupplyChainAddress = "0xa108A7C2e0417aF523eadFA4Cf628126BEFB0534";
-const SupplyChainUserAddress = "0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE";
 
 const initialValues = {
 	batchNo: "",
-	procAddress: "",
-	typeOfDrying: "",
-	roastImageHash: "",
-	roastTemp: "",
-	typeOfRoast: "",
-	roastDate: "",
-	millDate: "",
-	processorPrice: "",
+	packAddress: "",
+	arrivalDateP: "",
+	packDate: "",
+	packPrice: "",
 };
 
 const valSchema = Yup.object().shape({
@@ -31,31 +24,24 @@ const valSchema = Yup.object().shape({
 		.required("Requerido")
 		.max(42, "La direccion debe tener maximo 42 caracteres")
 		.min(42),
-	procAddress: Yup.string().required("Requerido"),
-	typeOfDrying: Yup.string().required("Requerido"),
-	roastImageHash: Yup.string().required("Requerido"),
-	roastTemp: Yup.string().required("Requerido"),
-	typeOfRoast: Yup.string().required("Requerido"),
-	roastDate: Yup.date().required("Requerido"),
-	millDate: Yup.date().required("Requerido"),
-	processorPrice: Yup.number()
+	packAddress: Yup.string().required("Requerido"),
+	arrivalDateP: Yup.date().required("Requerido"),
+	packDate: Yup.date().required("Requerido"),
+	packPrice: Yup.number()
 		.typeError("Por favor ingrese un precio correcto")
 		.required("Requerido"),
 });
 
-const AddProcessData = () => {
-	const [processData, setProcessData] = useState({
+const AddPackData = () => {
+	const [packData, setPackData] = useState({
 		batchNo: "-",
-		procAddress: "-",
-		typeOfDrying: "-",
-		roastImageHash: "-",
-		roastTemp: "-",
-		typeOfRoast: "-",
-		roastDate: "-",
-		millDate: "-",
-		processorPrice: "-",
+		packAddress: "-",
+		arrivalDateP: "-",
+		packDate: "-",
+		packPrice: "-",
 	});
-	const [processRegistered, setProcessRegistered] = useState([]);
+
+	const [packRegistered, setPackRegistered] = useState([]);
 
 	useEffect(() => {
 		const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -65,9 +51,9 @@ const AddProcessData = () => {
 			coffeeSupplychainABI.abi,
 			signer
 		);
-		erc20.on("DoneProcessing", (user, batchNo) => {
+		erc20.on("DonePackaging", (user, batchNo) => {
 			console.log({ user, batchNo });
-			setProcessRegistered((currentData) => [
+			setPackRegistered((currentData) => [
 				...currentData,
 				{
 					user,
@@ -76,7 +62,7 @@ const AddProcessData = () => {
 			]);
 		});
 		return () => {
-			erc20.removeAllListeners("DoneProcessing");
+			erc20.removeAllListeners("DonePackaging");
 		};
 	}, []);
 
@@ -90,27 +76,19 @@ const AddProcessData = () => {
 			coffeeSupplychainABI.abi,
 			signer
 		);
-		setProcessData({
+		setPackData({
 			batchNo: values["batchNo"],
-			procAddress: values["procAddress"],
-			typeOfDrying: values["typeOfDrying"],
-			roastImageHash: values["roastImageHash"],
-			roastTemp: values["roastTemp"],
-			typeOfRoast: values["typeOfRoast"],
-			roastDate: values["roastDate"],
-			millDate: values["millDate"],
-			processorPrice: values["processorPrice"],
+			packAddress: values["packAddress"],
+			arrivalDateP: values["arrivalDateP"],
+			packDate: values["packDate"],
+			packPrice: values["packPrice"],
 		});
-		await erc20.addProcessData(
+		await erc20.addPackData(
 			values["batchNo"],
-			values["procAddress"],
-			values["typeOfDrying"],
-			values["roastImageHash"],
-			values["roastTemp"],
-			values["typeOfRoast"],
-			values["roastDate"],
-			values["millDate"],
-			values["processorPrice"]
+			values["packAddress"],
+			values["arrivalDateP"],
+			values["packDate"],
+			values["packPrice"]
 		);
 	};
 
@@ -131,53 +109,33 @@ const AddProcessData = () => {
 									<Form>
 										<Grid container spacing={2}>
 											<Grid item xs={12}>
-												<Typography>Add Process Data</Typography>
+												<Typography>Add Packer Data</Typography>
 											</Grid>
 											<Grid item xs={6}>
 												<TextfieldWrapper name="batchNo" label="Batch No" />
 											</Grid>
 											<Grid item xs={6}>
 												<TextfieldWrapper
-													name="procAddress"
-													label="Processor Address"
+													name="packAddress"
+													label="Packer Address"
 												/>
 											</Grid>
 											<Grid item xs={6}>
-												<SelectWrapper
-													name="typeOfDrying"
-													label="Type Of Drying"
-													options={typeDrying}
+												<DateTimePicker
+													name="arrivalDateP"
+													label="Arrival Date at Packer"
+												/>
+											</Grid>
+											<Grid item xs={6}>
+												<DateTimePicker
+													name="packDate"
+													label="Packaging Date"
 												/>
 											</Grid>
 											<Grid item xs={6}>
 												<TextfieldWrapper
-													name="roastImageHash"
-													label="Roasting Image Hash"
-												/>
-											</Grid>
-											<Grid item xs={6}>
-												<TextfieldWrapper
-													name="roastTemp"
-													label="Roasting Temperature"
-												/>
-											</Grid>
-											<Grid item xs={6}>
-												<SelectWrapper
-													name="typeOfRoast"
-													label="Type Of Roasting"
-													options={typeRoasting}
-												/>
-											</Grid>
-											<Grid item xs={6}>
-												<DateTimePicker name="roastDate" label="Roast Date" />
-											</Grid>
-											<Grid item xs={6}>
-												<DateTimePicker name="millDate" label="Mill Date" />
-											</Grid>
-											<Grid item xs={6}>
-												<TextfieldWrapper
-													name="processorPrice"
-													label="Processor Price"
+													name="packPrice"
+													label="Packer Price"
 												/>
 											</Grid>
 											<Grid item xs={12}>
@@ -203,4 +161,4 @@ const AddProcessData = () => {
 	);
 };
 
-export default AddProcessData;
+export default AddPackData;

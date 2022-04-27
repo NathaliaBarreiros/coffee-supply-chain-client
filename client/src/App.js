@@ -13,6 +13,18 @@ import AddHarvestData from "./logic/AddHarvestData";
 
 import AddProcessData from "./logic/AddProcessData";
 
+import AddGrainData from "./logic/AddGrainData";
+
+import AddAgglomData from "./logic/AddAgglomData";
+
+import AddShipPackerData from "./logic/AddShipPackerData";
+
+import AddPackData from "./logic/AddPackData";
+
+import AddShipRetailerData from "./logic/AddShipRetailerData";
+
+import AddRetailerData from "./logic/AddRetailerData";
+
 import supplychainStorageABI from "./contracts/SupplyChainStorage.json";
 import supplychainUserABI from "./contracts/SupplyChainUser.json";
 import coffeeSupplychainABI from "./contracts/CoffeeSupplyChain.json";
@@ -31,6 +43,12 @@ function App() {
 			<GetUser />
 			<AddHarvestData />
 			<AddProcessData />
+			<AddGrainData />
+			<AddAgglomData />
+			<AddShipPackerData />
+			<AddPackData />
+			<AddShipRetailerData />
+			<AddRetailerData />
 		</div>
 	);
 }
