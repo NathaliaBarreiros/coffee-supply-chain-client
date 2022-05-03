@@ -7,6 +7,8 @@ import AddFarmDetails from "./logic/AddFarmDetails";
 
 import FormUser from "./logic/FormUser";
 
+import UpdateUser from "./logic/UpdateUser";
+
 import GetUser from "./logic/GetUser";
 
 import AddHarvestData from "./logic/AddHarvestData";
@@ -38,7 +40,7 @@ function App() {
 			<Login />
 			<GetOwner />
 			<AddUsersAdmin />
-			<FormUser />
+			<UpdateUser />
 			<AddFarmDetails />
 			<GetUser />
 			<AddHarvestData />
