@@ -27,6 +27,8 @@ import AddShipRetailerData from "./logic/AddShipRetailerData";
 
 import AddRetailerData from "./logic/AddRetailerData";
 
+import GetFarmDetails from "./logic/GetFarmDetails";
+
 import supplychainStorageABI from "./contracts/SupplyChainStorage.json";
 import supplychainUserABI from "./contracts/SupplyChainUser.json";
 import coffeeSupplychainABI from "./contracts/CoffeeSupplyChain.json";
@@ -51,6 +53,7 @@ function App() {
 			<AddPackData />
 			<AddShipRetailerData />
 			<AddRetailerData />
+			<GetFarmDetails />
 		</div>
 	);
 }
