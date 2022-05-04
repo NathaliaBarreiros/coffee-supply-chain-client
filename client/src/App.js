@@ -29,6 +29,20 @@ import AddRetailerData from "./logic/AddRetailerData";
 
 import GetFarmDetails from "./logic/GetFarmDetails";
 
+import GetHarvestData from "./logic/GetHarvestData";
+
+import GetProcessData from "./logic/GetProcessData";
+
+import GetGrainData from "./logic/GetGrainData";
+
+import GetAgglomData from "./logic/GetAgglomData";
+
+import GetPackData from "./logic/GetPackData";
+
+import GetShipPackerData from "./logic/GetShipPackerData";
+
+import GetShipRetailerData from "./logic/GetShipRetailerData";
+
 import supplychainStorageABI from "./contracts/SupplyChainStorage.json";
 import supplychainUserABI from "./contracts/SupplyChainUser.json";
 import coffeeSupplychainABI from "./contracts/CoffeeSupplyChain.json";
@@ -54,6 +68,13 @@ function App() {
 			<AddShipRetailerData />
 			<AddRetailerData />
 			<GetFarmDetails />
+			<GetHarvestData />
+			<GetProcessData />
+			<GetGrainData />
+			<GetAgglomData />
+			<GetShipPackerData />
+			<GetShipRetailerData />
+			<GetPackData />
 		</div>
 	);
 }

@@ -4,8 +4,10 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import TextfieldWrapper from "../components/FormsUI/Textfield";
+import supplychainUserABI from "../contracts/SupplyChainUser.json";
 import coffeeSupplyChainABI from "../contracts/CoffeeSupplyChain.json";
 const CoffeeSupplyChainAddress = "0xa108A7C2e0417aF523eadFA4Cf628126BEFB0534";
+const SupplyChainUserAddress = "0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE";
 
 const initialValues = {
 	batchNo: "",
@@ -15,21 +17,16 @@ const valSchema = Yup.object().shape({
 	batchNo: Yup.string().required("Requerido"),
 });
 
-const GetFarmDetails = () => {
-	const [farmInfo, setFarmInfo] = useState({
-		registrationNo: "",
-		farmName: "",
-		latitude: "",
-		longitude: "",
-		farmAddress: "",
+const GetShipRetailerData = () => {
+	const [shipRetailerInfo, setShipRetailerInfo] = useState({
+		transportTypeR: "",
+		pickupDateR: "",
+		shipPriceR: "",
 	});
 
-	const askFarm = async (values) => {
-		console.log("FARM DETAILS");
+	const askShipRetailer = async (values) => {
+		console.log("SHIPMENT TO RETAILER INFO");
 		const provider = new ethers.providers.Web3Provider(window.ethereum);
-		// const account = await window.ethereum.request({
-		// 	method: "eth_requestAccounts",
-		// });
 		const signer = provider.getSigner();
 		const erc20 = new ethers.Contract(
 			CoffeeSupplyChainAddress,
@@ -38,19 +35,18 @@ const GetFarmDetails = () => {
 		);
 
 		try {
-			const farmer = await erc20.callStatic.getFarmDetails(values["batchNo"]);
-			console.log(farmer);
-			setFarmInfo({
-				registrationNo: farmer["registrationNo"],
-				farmName: farmer["farmName"],
-				latitude: farmer["latitude"],
-				longitude: farmer["longitude"],
-				farmAddress: farmer["farmAddress"],
+			const info = await erc20.callStatic.getFarmDetails(values["batchNo"]);
+			console.log(info);
+			setShipRetailerInfo({
+				transportTypeP: info["transportTypeR"],
+				pickupDateP: info["pickupDateR"],
+				shipPriceP: info["shipPriceR"],
 			});
 		} catch (error) {
-			console.log("ERROR AT GETTING FARM DETAILS: ", error);
+			console.log("ERROR AT GETTING SHIPMENT TO RETAILER INFO: ", error);
 		}
 	};
+
 	return (
 		<Grid container>
 			<Grid item xs={12}>
@@ -60,7 +56,7 @@ const GetFarmDetails = () => {
 							initialValues={initialValues}
 							validationSchema={valSchema}
 							onSubmit={(values) => {
-								askFarm(values);
+								askShipRetailer(values);
 							}}
 						>
 							{({ dirty, isValid }) => {
@@ -78,7 +74,7 @@ const GetFarmDetails = () => {
 													type="submit"
 												>
 													{" "}
-													GET FARM DETAILS
+													GET SHIPMENT TO RETAILER DATA
 												</Button>
 											</Grid>
 										</Grid>
@@ -93,4 +89,4 @@ const GetFarmDetails = () => {
 	);
 };
 
-export default GetFarmDetails;
+export default GetShipRetailerData;
