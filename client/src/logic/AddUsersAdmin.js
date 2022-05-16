@@ -21,9 +21,9 @@ const INITIAL_FORM_USER_STATE = {
 	name: "",
 	email: "",
 	role: "",
-	isActive: false,
-	// profileHash: "",
-	profileHash: null,
+	isActive: true,
+	profileHash: "",
+	//profileHash: null,
 };
 
 const SUPPORTED_FORMATS = ["image/jpg", "image/png", "image/jpeg", "image/gif"];
@@ -38,22 +38,22 @@ const FORM_USER_VALIDATION = Yup.object().shape({
 	email: Yup.string().email("Email inválido").required("Requerido"),
 	role: Yup.string().required("Requerido"),
 	isActive: Yup.boolean().required("requerido"),
-	// profileHash: Yup.string(),
-	profileHash: Yup.mixed()
-		.required("requerido")
-		.nullable()
-		.test(
-			"size",
-			"File size is too big",
-			(value) => value && value.size <= 1024 * 1024 // 5MB
-		)
-		.test(
-			"type",
-			"Invalid file format selection",
-			(value) =>
-				// console.log(value);
-				!value || (value && SUPPORTED_FORMATS.includes(value?.type))
-		),
+	profileHash: Yup.string(),
+	// profileHash: Yup.mixed()
+	// 	//.required("requerido")
+	// 	.nullable()
+	// 	.test(
+	// 		"size",
+	// 		"File size is too big",
+	// 		(value) => value && value.size <= 1024 * 1024 // 5MB
+	// 	)
+	// 	.test(
+	// 		"type",
+	// 		"Invalid file format selection",
+	// 		(value) =>
+	// 			// console.log(value);
+	// 			!value || (value && SUPPORTED_FORMATS.includes(value?.type))
+	// 	),
 });
 
 const AddUsersAdmin = () => {
@@ -62,26 +62,26 @@ const AddUsersAdmin = () => {
 		name: "-",
 		email: "-",
 		role: "-",
-		isActive: false,
+		isActive: true,
 		profileHash: "-",
 	});
 	const [userRegistered, setUserRegistered] = useState([]);
 	const [images, setImages] = useState([]);
-	let ipfs;
-	try {
-		ipfs = create({
-			url: "https://ipfs.infura.io:5001/api/v0",
-			// headers: {
-			// 	authorization,
-			// },
-		});
-		//console.log(authorization);
-		//console.log("CONECTED");
-		//console.log("ipfs", ipfs);
-	} catch (error) {
-		console.error("IPFS error ", error);
-		ipfs = undefined;
-	}
+	// let ipfs;
+	// try {
+	// 	ipfs = create({
+	// 		url: "https://ipfs.infura.io:5001/api/v0",
+	// 		// headers: {
+	// 		// 	authorization,
+	// 		// },
+	// 	});
+	// 	//console.log(authorization);
+	// 	//console.log("CONECTED");
+	// 	//console.log("ipfs", ipfs);
+	// } catch (error) {
+	// 	console.error("IPFS error ", error);
+	// 	ipfs = undefined;
+	// }
 
 	useEffect(() => {
 		// listener del evento "UserUpdate", cuando ya se registra en la blockchain
@@ -126,30 +126,30 @@ const AddUsersAdmin = () => {
 		console.log(values["isActive"]);
 		console.log(values["profileHash"]);
 
-		if (!values["profileHash"] || values["profileHash"].length === 0) {
-			console.log("No files selected!");
-		}
+		// if (!values["profileHash"] || values["profileHash"].length === 0) {
+		// 	console.log("No files selected!");
+		// }
 
-		const file = values["profileHash"];
-		const result = await ipfs.add(file);
+		// const file = values["profileHash"];
+		// const result = await ipfs.add(file);
 
-		const url = `https://ipfs.infura.io/ipfs/${result.path}`;
-		console.log("url: ", url);
+		// const url = `https://ipfs.infura.io/ipfs/${result.path}`;
+		// console.log("url: ", url);
 
-		const uniquePaths = new Set([
-			...images.map((image) => image.path),
-			result.path,
-		]);
+		// const uniquePaths = new Set([
+		// 	...images.map((image) => image.path),
+		// 	result.path,
+		// ]);
 
-		const uniqueImages = [...uniquePaths.values()].map((path) => {
-			return [
-				...images,
-				{
-					cid: result.cid,
-					path: result.path,
-				},
-			].find((image) => image.path === path);
-		});
+		// const uniqueImages = [...uniquePaths.values()].map((path) => {
+		// 	return [
+		// 		...images,
+		// 		{
+		// 			cid: result.cid,
+		// 			path: result.path,
+		// 		},
+		// 	].find((image) => image.path === path);
+		// });
 
 		// setImages([
 		// 	...images,
@@ -158,9 +158,9 @@ const AddUsersAdmin = () => {
 		// 		path: result.path,
 		// 	},
 		// ]);
-		setImages(uniqueImages);
+		//setImages(uniqueImages);
 
-		console.log("images: ", images);
+		//console.log("images: ", images);
 
 		const provider = new ethers.providers.Web3Provider(window.ethereum);
 		//await provider.send("eth_requestAccounts", []);
@@ -176,8 +176,8 @@ const AddUsersAdmin = () => {
 			email: values["email"],
 			role: values["role"],
 			isActive: values["isActive"],
-			// profileHash: values["profileHash"],
-			profileHash: url,
+			profileHash: values["profileHash"],
+			//profileHash: url,
 		});
 		console.log("userinfo: ", userInfo);
 		await erc20.updateUserForAdmin(
@@ -186,8 +186,8 @@ const AddUsersAdmin = () => {
 			values["email"],
 			values["role"],
 			values["isActive"],
-			// values["profileHash"]
-			url
+			values["profileHash"]
+			//url
 		);
 	};
 
@@ -236,11 +236,13 @@ const AddUsersAdmin = () => {
 											<SelectWrapper name="role" label="Role" options={role} />
 										</Grid>
 										<Grid item xs={6}>
-											{/* <TextfieldWrapper
-													name="profileHash"
-													label="Profile Hash"
-												/> */}
+											<TextfieldWrapper
+												name="profileHash"
+												label="Profile Hash"
+											/>
+										</Grid>
 
+										{/* <Grid item xs={6}>
 											<label>
 												Profile Hash:{" "}
 												<div>
@@ -282,7 +284,7 @@ const AddUsersAdmin = () => {
 													/>
 												))}
 											</div>
-										</Grid>
+										</Grid> */}
 										<Grid item xs={6}>
 											<CheckboxWrapper
 												name="isActive"
@@ -290,6 +292,19 @@ const AddUsersAdmin = () => {
 												label="Active User"
 											/>
 										</Grid>
+										{/* <div>
+											<Grid item xs={12}>
+												<Button
+													fullWidth
+													variant="contained"
+													disabled={!dirty || !isValid}
+													type="submit"
+												>
+													{" "}
+													SUBMIT
+												</Button>
+											</Grid>
+										</div> */}
 										<Grid item xs={12}>
 											<Button
 												fullWidth

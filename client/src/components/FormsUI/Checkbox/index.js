@@ -22,6 +22,7 @@ const CheckboxWrapper = ({ name, label, legend, ...otherProps }) => {
 		...field,
 		...otherProps,
 		onChange: handleChange,
+		defaultChecked: true,
 	};
 
 	//como checkbox no tiene un prop for error necesito usar FormControl
