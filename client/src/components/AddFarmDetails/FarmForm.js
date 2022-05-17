@@ -8,7 +8,7 @@ import HandleSubmit from '../../logic/AddFarmDetails/HandleSubmit';
 import FarmListener from '../../logic/AddFarmDetails/FarmListener';
 
 const initialValues = {
-  registrationNo: '',
+  // registrationNo: '',
   farmName: '',
   latitude: '',
   longitude: '',
@@ -16,7 +16,7 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  registrationNo: Yup.string().required('Requerido'),
+  // registrationNo: Yup.string().required('Requerido'),
   farmName: Yup.string().required('Requerido'),
   latitude: Yup.string().required('Requerido'),
   longitude: Yup.string().required('Requerido'),
@@ -49,9 +49,9 @@ const FarmForm = () => {
                       <Grid item xs={12}>
                         <Typography>Añadir Detalles de la Granja</Typography>
                       </Grid>
-                      <Grid item xs={6}>
+                      {/* <Grid item xs={6}>
                         <TextfieldWrapper name="registrationNo" label="Registration No" />
-                      </Grid>
+                      </Grid> */}
                       <Grid item xs={6}>
                         <TextfieldWrapper name="farmName" label="Farm Name" />
                       </Grid>
