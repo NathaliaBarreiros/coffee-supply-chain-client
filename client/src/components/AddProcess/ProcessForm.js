@@ -16,7 +16,7 @@ const initialValues = {
   batchNo: '',
   procAddress: '',
   typeOfDrying: '',
-  roastImageHash: null,
+  roastImageHash: undefined,
   roastTemp: '',
   typeOfRoast: '',
   roastDate: '',
@@ -32,7 +32,7 @@ const valSchema = Yup.object().shape({
   procAddress: Yup.string().required('Requerido'),
   typeOfDrying: Yup.string().required('Requerido'),
   // roastImageHash: Yup.string().required('Requerido'),
-  profileHash: Yup.mixed()
+  roastImageHash: Yup.mixed()
     .required('requerido')
     .test('fileSize', 'File too large', (value) => value === null || (value && value.size <= FILE_SIZE))
     .test(
@@ -50,6 +50,15 @@ const valSchema = Yup.object().shape({
 const ProcessForm = () => {
   const { processRegistered } = ProcessListener();
 
+  let ipfs;
+  try {
+    ipfs = create({
+      url: 'https://ipfs.infura.io:5001/api/v0',
+    });
+  } catch (err) {
+    ipfs = undefined;
+  }
+
   useEffect(() => {
     console.log(processRegistered);
   }, [processRegistered]);
@@ -57,16 +66,18 @@ const ProcessForm = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Container maxWidth="md">
-          <div>
+        {/* <Container maxWidth="md"> */}
+
+        <div>
+          <Container maxWidth="md">
             <Formik
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                HandleSubmit(values);
+                HandleSubmit(values, ipfs);
               }}
             >
-              {({ dirty, isValid }) => {
+              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => {
                 return (
                   <Form>
                     <Grid container spacing={2}>
@@ -83,7 +94,25 @@ const ProcessForm = () => {
                         <SelectWrapper name="typeOfDrying" label="Type Of Drying" options={typeDrying} />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="roastImageHash" label="Roasting Image Hash" />
+                        {/* <TextfieldWrapper name="roastImageHash" label="Roasting Image Hash" /> */}
+                        <div>
+                          <Typography variant="inherit">Roasting Image Hash</Typography>
+
+                          <input
+                            name="roastImageHash"
+                            type="file"
+                            onChange={(event) => {
+                              setTouched({
+                                ...touched,
+                                roastImageHash: true,
+                              });
+                              setFieldValue('roastImageHash', event.target.files[0]);
+                            }}
+                          />
+                          {touched.roastImageHash && errors.roastImageHash ? (
+                            <small>{errors.roastImageHash}</small>
+                          ) : null}
+                        </div>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="roastTemp" label="Roasting Temperature" />
@@ -111,8 +140,9 @@ const ProcessForm = () => {
                 );
               }}
             </Formik>
-          </div>
-        </Container>
+          </Container>
+        </div>
+        {/* </Container> */}
       </Grid>
     </Grid>
   );
