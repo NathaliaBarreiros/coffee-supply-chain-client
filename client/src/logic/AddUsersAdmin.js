@@ -69,6 +69,7 @@ const AddUsersAdmin = () => {
 	});
 	const [userRegistered, setUserRegistered] = useState([]);
 	const [images, setImages] = useState([]);
+	const [url, setUrl] = useState("");
 
 	let ipfs;
 	try {
@@ -113,33 +114,62 @@ const AddUsersAdmin = () => {
 
 		return () => {
 			erc20.removeAllListeners("UserUpdate");
-			//console.log("userRegReturn", userRegistered);
 		};
 	}, []);
 
-	// const getUrl = async () => {
-	// 	const path = images.map((image) => image.path);
-	// 	return path;
-	// };
-
 	const handleSubmit = async (values) => {
-		//console.log(values);
-		console.log(values["userAddress"]);
-		console.log(values["name"]);
-		console.log(values["role"]);
-		console.log(values["email"]);
-		console.log(values["isActive"]);
-		console.log(values["profileHash"]);
+		console.log(values);
 
+		let image = values["profileHash"];
+		//const uploadIPFS = async (values) => {
 		if (!values["profileHash"] || values["profileHash"].length === 0) {
 			console.log("No files selected!");
-			console.log("profileHashHandler", values["profileHash"]);
+			values["profileHash"] = "";
+			console.log(
+				"profileHashHandler",
+				values["profileHash"],
+				"type: ",
+				typeof values["profileHash"]
+			);
+
+			const provider = new ethers.providers.Web3Provider(window.ethereum);
+			const signer = await provider.getSigner();
+			const erc20 = new ethers.Contract(
+				SupplyChainUserAddress,
+				supplychainUserABI.abi,
+				signer
+			);
+			setUserInfo({
+				userAddress: values["userAddress"],
+				name: values["name"],
+				email: values["email"],
+				role: values["role"],
+				isActive: values["isActive"],
+				profileHash: values["profileHash"],
+				//profileHash: url,
+			});
+			console.log("userinfo: ", userInfo);
+			await erc20.updateUserForAdmin(
+				values["userAddress"],
+				values["name"],
+				values["email"],
+				values["role"],
+				values["isActive"],
+				values["profileHash"]
+				//url
+			);
 		} else {
+			console.log(
+				"profileHashHandler",
+				values["profileHash"],
+				"type: ",
+				typeof values["profileHash"]
+			);
 			const file = values["profileHash"];
 			const result = await ipfs.add(file);
 
 			const url = `https://ipfs.infura.io/ipfs/${result.path}`;
-			console.log("url: ", url);
+			console.log("url: ", url, "url stype: ", typeof url);
 
 			const uniquePaths = new Set([
 				...images.map((image) => image.path),
@@ -165,44 +195,79 @@ const AddUsersAdmin = () => {
 			]);
 			setImages(uniqueImages);
 
-			console.log("images: ", images);
-		}
+			console.log(
+				"profileHashHandler",
+				values["profileHash"],
+				"type: ",
+				typeof values["profileHash"]
+			);
+			// console.log("images: ", images);
 
-		if (values["profileHash"] === null) {
-			// console.log(
-			// 	"type of profile hash submit handler",
-			// 	typeof values["profileHash"]
-			// );
-			values["profileHash"] = "";
+			const provider = new ethers.providers.Web3Provider(window.ethereum);
+			const signer = await provider.getSigner();
+			const erc20 = new ethers.Contract(
+				SupplyChainUserAddress,
+				supplychainUserABI.abi,
+				signer
+			);
+			setUserInfo({
+				userAddress: values["userAddress"],
+				name: values["name"],
+				email: values["email"],
+				role: values["role"],
+				isActive: values["isActive"],
+				//profileHash: values["profileHash"],
+				profileHash: url,
+			});
+			console.log("userinfo: ", userInfo);
+			await erc20.updateUserForAdmin(
+				values["userAddress"],
+				values["name"],
+				values["email"],
+				values["role"],
+				values["isActive"],
+				//values["profileHash"]
+				url
+			);
 		}
+		//};
 
-		const provider = new ethers.providers.Web3Provider(window.ethereum);
-		//await provider.send("eth_requestAccounts", []);
-		const signer = await provider.getSigner();
-		const erc20 = new ethers.Contract(
-			SupplyChainUserAddress,
-			supplychainUserABI.abi,
-			signer
-		);
-		setUserInfo({
-			userAddress: values["userAddress"],
-			name: values["name"],
-			email: values["email"],
-			role: values["role"],
-			isActive: values["isActive"],
-			profileHash: values["profileHash"],
-			//profileHash: url,
-		});
-		console.log("userinfo: ", userInfo);
-		await erc20.updateUserForAdmin(
-			values["userAddress"],
-			values["name"],
-			values["email"],
-			values["role"],
-			values["isActive"],
-			values["profileHash"]
-			//url
-		);
+		// sino NO DEJA LEER PROPIEDADES DE NULL
+		// if (values["profileHash"] === null) {
+		// 	// console.log(
+		// 	// 	"type of profile hash submit handler",
+		// 	// 	typeof values["profileHash"]
+		// 	// );
+		// 	values["profileHash"] = "";
+		// }
+
+		// const provider = new ethers.providers.Web3Provider(window.ethereum);
+		// //await provider.send("eth_requestAccounts", []);
+		// const signer = await provider.getSigner();
+		// const erc20 = new ethers.Contract(
+		// 	SupplyChainUserAddress,
+		// 	supplychainUserABI.abi,
+		// 	signer
+		// );
+		// setUserInfo({
+		// 	userAddress: values["userAddress"],
+		// 	name: values["name"],
+		// 	email: values["email"],
+		// 	role: values["role"],
+		// 	isActive: values["isActive"],
+		// 	profileHash: values["profileHash"],
+		// 	//profileHash: url,
+		// });
+		// console.log("userinfo: ", userInfo);
+		// await erc20.updateUserForAdmin(
+		// 	values["userAddress"],
+		// 	values["name"],
+		// 	values["email"],
+		// 	values["role"],
+		// 	values["isActive"],
+		// 	values["profileHash"]
+		// 	//url
+		// );
 	};
 
 	return (
