@@ -120,7 +120,6 @@ const AddUsersAdmin = () => {
 	const handleSubmit = async (values) => {
 		console.log(values);
 
-		let image = values["profileHash"];
 		//const uploadIPFS = async (values) => {
 		if (!values["profileHash"] || values["profileHash"].length === 0) {
 			console.log("No files selected!");
@@ -186,13 +185,13 @@ const AddUsersAdmin = () => {
 				].find((image) => image.path === path);
 			});
 
-			setImages([
-				...images,
-				{
-					cid: result.cid,
-					path: result.path,
-				},
-			]);
+			// setImages([
+			// 	...images,
+			// 	{
+			// 		cid: result.cid,
+			// 		path: result.path,
+			// 	},
+			// ]);
 			setImages(uniqueImages);
 
 			console.log(
