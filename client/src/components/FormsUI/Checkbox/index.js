@@ -16,6 +16,7 @@ const CheckboxWrapper = ({ name, label, legend, ...otherProps }) => {
     ...field,
     ...otherProps,
     onChange: handleChange,
+    defaultChecked: true,
   };
 
   const configFormControl = {};
