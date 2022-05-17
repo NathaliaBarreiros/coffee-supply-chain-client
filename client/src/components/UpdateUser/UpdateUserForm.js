@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { create } from 'ipfs-http-client';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
 import SelectWrapper from '../FormsUI/Select';
@@ -14,20 +15,39 @@ const initialValues = {
   name: '',
   email: '',
   role: '',
-  isActive: false,
-  profileHash: '',
+  isActive: true,
+  profileHash: null,
 };
+
+const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
+const FILE_SIZE = 650 * 1024;
 
 const valSchema = Yup.object().shape({
   name: Yup.string().required('Requerido').min(2, 'Ingresa el nombre completo'),
   email: Yup.string().email('Email inválido').required('Requerido'),
   role: Yup.string().required('Requerido'),
   isActive: Yup.boolean().required('requerido'),
-  profileHash: Yup.string(),
+  //profileHash: Yup.string(),
+  profileHash: Yup.mixed()
+    .test('fileSize', 'File too large', (value) => value === null || (value && value.size <= FILE_SIZE))
+    .test(
+      'type',
+      'Invalid file format selection',
+      (value) => !value || (value && SUPPORTED_FORMATS.includes(value?.type))
+    ),
 });
 
 const UpdateUserForm = () => {
   const { userUpdated } = UpdateUserListener();
+
+  let ipfs;
+  try {
+    ipfs = create({
+      url: 'https://ipfs.infura.io:5001/api/v0',
+    });
+  } catch (err) {
+    ipfs = undefined;
+  }
 
   useEffect(() => {
     console.log(userUpdated);
@@ -36,16 +56,17 @@ const UpdateUserForm = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Container maxWidth="md">
-          <div>
+        {/* <Container maxWidth="md"> */}
+        <div>
+          <Container maxWidth="md">
             <Formik
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                HandleSubmit(values);
+                HandleSubmit(values, ipfs);
               }}
             >
-              {({ dirty, isValid }) => {
+              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => {
                 return (
                   <Form>
                     <Grid container spacing={2}>
@@ -62,7 +83,24 @@ const UpdateUserForm = () => {
                         <SelectWrapper name="role" label="Role" options={role} />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="profileHash" label="Profile Hash" />
+                        {/* <TextfieldWrapper name="profileHash" label="Profile Hash" /> */}
+                        <div>
+                          <Typography variant="inherit">Profile Hash</Typography>
+
+                          <input
+                            name="profileHash"
+                            // label="Profile Hash"
+                            type="file"
+                            onChange={(event) => {
+                              setTouched({
+                                ...touched,
+                                profileHash: true,
+                              });
+                              setFieldValue('profileHash', event.target.files[0]);
+                            }}
+                          />
+                          {touched.profileHash && errors.profileHash ? <small>{errors.profileHash}</small> : null}
+                        </div>
                       </Grid>
                       <Grid item xs={6}>
                         <CheckboxWrapper name="isActive" legend="Activity" label="Active User" />
@@ -78,8 +116,9 @@ const UpdateUserForm = () => {
                 );
               }}
             </Formik>
-          </div>
-        </Container>
+          </Container>
+        </div>
+        {/* </Container> */}
       </Grid>
     </Grid>
   );

@@ -11,6 +11,8 @@ import role from '../../data/roles.json';
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
 import UserAdminListener from '../../logic/AddUserAdmin/UserAdminListener';
 
+// import ConnectIPFS from '../../logic/ipfs/user/ConnectIPFS';
+
 const initialValues = {
   userAddress: '',
   name: '',
@@ -46,17 +48,18 @@ const valSchema = Yup.object().shape({
 const UserAdminForm = () => {
   const { userRegistered } = UserAdminListener();
 
+  // const someIpfs = ConnectIPFS.conection;
+  // console.log('some-ipfs:', someIpfs);
+
   let ipfs;
   try {
     ipfs = create({
       url: 'https://ipfs.infura.io:5001/api/v0',
     });
-    // return { conection: ipfs, error: null };
   } catch (err) {
     ipfs = undefined;
-    // return { conection: null, error: err };
   }
-  console.log('ipfs', ipfs);
+  // console.log('ipfs', ipfs);
 
   useEffect(() => {
     console.log(userRegistered);

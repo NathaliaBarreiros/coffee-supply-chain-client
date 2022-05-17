@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { getUserWriterERC20 } from '../erc20';
-import ConnectIPFS from '../ipfs/user/ConnectIPFS';
+// import ConnectIPFS from '../ipfs/user/ConnectIPFS';
 
 const HandleSubmit = async (values, ipfs) => {
   // const [images, setImages] = useState([]);

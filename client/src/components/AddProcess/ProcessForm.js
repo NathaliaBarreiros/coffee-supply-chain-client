@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { create } from 'ipfs-http-client';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
@@ -15,7 +16,7 @@ const initialValues = {
   batchNo: '',
   procAddress: '',
   typeOfDrying: '',
-  roastImageHash: '',
+  roastImageHash: null,
   roastTemp: '',
   typeOfRoast: '',
   roastDate: '',
@@ -23,11 +24,22 @@ const initialValues = {
   processorPrice: '',
 };
 
+const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
+const FILE_SIZE = 650 * 1024;
+
 const valSchema = Yup.object().shape({
   batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
   procAddress: Yup.string().required('Requerido'),
   typeOfDrying: Yup.string().required('Requerido'),
-  roastImageHash: Yup.string().required('Requerido'),
+  // roastImageHash: Yup.string().required('Requerido'),
+  profileHash: Yup.mixed()
+    .required('requerido')
+    .test('fileSize', 'File too large', (value) => value === null || (value && value.size <= FILE_SIZE))
+    .test(
+      'type',
+      'Invalid file format selection',
+      (value) => !value || (value && SUPPORTED_FORMATS.includes(value?.type))
+    ),
   roastTemp: Yup.string().required('Requerido'),
   typeOfRoast: Yup.string().required('Requerido'),
   roastDate: Yup.date().required('Requerido'),
