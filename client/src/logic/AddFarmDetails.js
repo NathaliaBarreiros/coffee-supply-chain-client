@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { v4 as uuid } from "uuid";
 import FormikField from "../components/FormikMUI/FormikField";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { ethers } from "ethers";
@@ -10,7 +11,7 @@ const CoffeeSupplyChainAddress = "0xa108A7C2e0417aF523eadFA4Cf628126BEFB0534";
 const SupplyChainUserAddress = "0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE";
 
 const initialValues = {
-	registrationNo: "",
+	// registrationNo: "",
 	farmName: "",
 	latitude: "",
 	longitude: "",
@@ -18,7 +19,7 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-	registrationNo: Yup.string().required("Requerido"),
+	// registrationNo: Yup.string().required("Requerido"),
 	farmName: Yup.string().required("Requerido"),
 	latitude: Yup.string().required("Requerido"),
 	longitude: Yup.string().required("Requerido"),
@@ -71,15 +72,19 @@ const AddFarmDetails = () => {
 			coffeeSupplychainABI.abi,
 			signer
 		);
+		const uniqueID = uuid();
+		console.log("unique ID: ", uniqueID);
 		setFarmDetails({
-			registrationNo: values["registrationNo"],
+			// registrationNo: values["registrationNo"],
+			registrationNo: uniqueID,
 			farmName: values["farmName"],
 			latitude: values["latitude"],
 			longitude: values["longitude"],
 			farmAddress: values["farmAddress"],
 		});
 		await erc20.addFarmDetails(
-			values["registrationNo"],
+			// values["registrationNo"],
+			uniqueID,
 			values["farmName"],
 			values["latitude"],
 			values["longitude"],
@@ -105,11 +110,14 @@ const AddFarmDetails = () => {
 									<Form>
 										<Grid container spacing={2}>
 											<Grid item xs={6}>
-												<FormikField
+												<Typography>
+													unique ID: {farmDetails.registrationNo}
+												</Typography>
+												{/* <FormikField
 													name="registrationNo"
 													label="Registration No"
 													required
-												/>
+												/> */}
 											</Grid>
 											<Grid item xs={6}>
 												<FormikField
