@@ -1,7 +1,8 @@
-import { getCoffeERC20 } from '../erc20';
+import { getCoffeERC20, infuraGetCoffeERC20 } from '../erc20';
 
 const AskNextAction = async (values) => {
   const erc20 = getCoffeERC20();
+  const erc20Infura = await infuraGetCoffeERC20();
 
   try {
     const info = await erc20.callStatic.getNextAction(values.batchNo);
