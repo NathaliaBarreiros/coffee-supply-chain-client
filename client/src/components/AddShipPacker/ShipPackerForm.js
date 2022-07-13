@@ -2,13 +2,14 @@ import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { useSnackbar } from 'notistack';
 
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 import PendingConfirmation from '../PendingConfirmation';
+import MobileDateTimePicker from '../FormsUI/MobileDateTimePicker';
 
 import { addTx, removeTx } from '../../redux/txSlice';
 
@@ -18,7 +19,7 @@ import transportTypeP from '../../data/transportTypeP.json';
 const initialValues = {
   batchNo: '',
   transportTypeP: '',
-  pickupDateP: '',
+  pickupDateTimeP: {},
   shipPriceP: '',
 };
 
@@ -28,7 +29,8 @@ const valSchema = Yup.object().shape({
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
   transportTypeP: Yup.string().required('Obligatorio'),
-  pickupDateP: Yup.date().required('Obligatorio'),
+  pickupDateTimeP: Yup.object().required('Obligatorio'),
+  // Yup.string().required('Obligatorio'),
   shipPriceP: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
@@ -68,15 +70,15 @@ const ShipPackerForm = () => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid }) => {
+              {({ dirty, isValid, values }) => {
                 return (
                   <Form>
                     <Grid container spacing={2}>
-                      <Grid item xs={12}>
+                      {/* <Grid item xs={12}>
                         <Typography className="mb-5 font-semibold underline underline-offset-2">
                           DATOS DE TRANSPORTE HACIA EMPACADORA
                         </Typography>
-                      </Grid>
+                      </Grid> */}
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
@@ -84,7 +86,10 @@ const ShipPackerForm = () => {
                         <SelectWrapper name="transportTypeP" label="Tipo de Transporte" options={transportTypeP} />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="pickupDateP" label="Fecha Recogida en Aglomerador" />
+                        {/* <DateTimePicker name="pickupDateP" label="Fecha Recogida en Aglomerador" /> */}
+                        <MobileDateTimePicker name="pickupDateTimeP" label="Fecha y Hora de Recogida en Aglomerador" />
+                        <Typography>{String(values.pickupDateTimeP)}</Typography>
+                        <Typography>{typeof values.pickupDateTimeP}</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="shipPriceP" label="Precio del Transporte" />
