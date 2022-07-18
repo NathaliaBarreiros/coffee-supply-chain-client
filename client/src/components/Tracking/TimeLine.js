@@ -30,13 +30,15 @@ import {
   getShipRetailerTx,
   getRetailerTx,
 } from '../../logic/getBatchTx';
-import getUserByAddress from '../../logic/GetUser';
 
 import getUserInfura from '../../logic/GetUserInfura';
 import getOwnerInfura from '../../logic/GetOwnerInfura';
 
-import getOwner from '../../logic/GetOwner';
 import '../../App.css';
+
+import MapsTracking from '../Maps/MapsTracking';
+
+const google = window.google;
 
 const TimeLine = ({ batchNoIn }) => {
   const [message, setMessage] = useState('Loading..');
@@ -93,17 +95,17 @@ const TimeLine = ({ batchNoIn }) => {
       const shiretailerdat = await AskShipRetailer({ batchNo: batchNoIn });
       const retailerdat = await AskRetailer({ batchNo: batchNoIn });
 
-      // console.log('n action: ', nAction);
-      // console.log('farm: ', farmdat);
-      // console.log('harvest: ', harvestdat);
-      // console.log('procs: ', procdat);
-      // console.log('taste: ', tastedat);
-      // console.log('sell: ', selldat);
-      // console.log('warehouse: ', warehousedat);
-      // console.log('shippack: ', shipackdat);
-      // console.log('pack: ', packdat);
-      // console.log('retship: ', shiretailerdat);
-      // console.log('ret: ', retailerdat);
+      console.log('n action: ', nAction);
+      console.log('farm: ', farmdat);
+      console.log('harvest: ', harvestdat);
+      console.log('procs: ', procdat);
+      console.log('taste: ', tastedat);
+      console.log('sell: ', selldat);
+      console.log('warehouse: ', warehousedat);
+      console.log('shippack: ', shipackdat);
+      console.log('pack: ', packdat);
+      console.log('retship: ', shiretailerdat);
+      console.log('ret: ', retailerdat);
 
       const dateP = moment(harvestdat.data.harvestDate).format('DD-MM-YYYY');
       const timeP = moment(harvestdat.data.harvestDate).format('HH:mm:ss');
@@ -116,7 +118,7 @@ const TimeLine = ({ batchNoIn }) => {
 
       // console.log(retailerData )
       if (nextAction && nextAction.data !== 'DONE') {
-        console.log('NO DONE');
+        // console.log('NO DONE');
         setMessage('No disponible');
         return;
       }
@@ -147,7 +149,7 @@ const TimeLine = ({ batchNoIn }) => {
       const packerTx = await getPackerTx(batchNoIn);
       const shipRetailerTx = await getShipRetailerTx(batchNoIn);
       const retailerTx = await getRetailerTx(batchNoIn);
-      console.log('harvest tx : ', harvestTx);
+      // console.log('harvest tx : ', harvestTx);
 
       const ds = moment.unix(harvestTx[2]).format('DD-MM-YYYY');
       const ts = moment.unix(harvestTx[2]).format('HH:mm:ss');
@@ -156,7 +158,6 @@ const TimeLine = ({ batchNoIn }) => {
 
       // console.log('dateP: ', ds, 'time: ', ts, 'utc', utc);
 
-      const admin = await getOwner();
       const userHarvest = await getUserInfura(harvestTx[0]);
       const userProcess = await getUserInfura(processTx[0]);
       const userTaste = await getUserInfura(tasteTx[0]);
@@ -698,6 +699,22 @@ const TimeLine = ({ batchNoIn }) => {
             </div>
           </div>
         </PhaseCard>
+      </div>
+      <div>
+        <MapsTracking
+        // farmAddress={farmData.data[4]}
+        // processAddress={processData.data[0]}
+        // warehouseAddress={warehouseData.data[0]}
+        // packerAddress={packerData.data[0]}
+        // warehouseRetAddress={retailerData.data[3]}
+        // salepointRetAddress={retailerData.data[4]}
+        />
+        {/* farmAddress = {},
+    processAddress,
+    warehouseAddress,
+    packerAddress,
+    warehouseRetAddress,
+    salepointRetAddress= */}
       </div>
     </div>
   );
