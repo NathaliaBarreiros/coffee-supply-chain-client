@@ -52,7 +52,8 @@ const ProcessView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Lotes de Café"
-              image="https://ictcoffee.com/wp-content/uploads/2018/11/coffee_processing.jpg.webp"
+              // image="https://ictcoffee.com/wp-content/uploads/2018/11/coffee_processing.jpg.webp"
+              image="/static/images/processing1.webp"
               buttonText="AGREGAR PROCESADO"
               dialogTitle="Agregar Datos de Procesamiento"
               Form={ProcessForm}
