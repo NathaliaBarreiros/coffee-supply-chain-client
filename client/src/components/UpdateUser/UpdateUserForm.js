@@ -82,7 +82,7 @@ const UpdateUserForm = () => {
       setTxHash(trans.hash);
       dispatch(addTx({ tx: trans.hash, type: 'UserUpdate' }));
       setLoading(false);
-      enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
+      enqueueSnackbar('Transacción pendiente de confirmación en blockchain', { variant: 'info' });
     }).catch((error) => {
       dispatch(removeTx({ tx: txHash, type: 'UserUpdate' }));
       enqueueSnackbar(error.message, { variant: 'error' });

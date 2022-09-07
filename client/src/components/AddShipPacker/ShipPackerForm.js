@@ -55,7 +55,7 @@ const ShipPackerForm = (props) => {
       setTxHash(trans.hash);
       dispatch(addTx({ tx: trans.hash, type: 'DoneShippingPacker' }));
       setLoading(false);
-      enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
+      enqueueSnackbar('Transacción pendiente de confirmación en blockchain', { variant: 'info' });
     }).catch((error) => {
       dispatch(removeTx({ tx: txHash, type: 'DoneShippingPacker' }));
       enqueueSnackbar(error.message, { variant: 'warning' });

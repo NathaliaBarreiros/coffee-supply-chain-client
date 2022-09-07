@@ -63,7 +63,7 @@ const HarvestForm = (props) => {
       setTxHash(trans.hash);
       dispatch(addTx({ tx: trans.hash, type: 'DoneHarvesting' }));
       setLoading(false);
-      enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
+      enqueueSnackbar('Transacción pendiente de confirmación en blockchain', { variant: 'info' });
     }).catch((error) => {
       dispatch(removeTx({ tx: txHash, type: 'DoneHarvesting' }));
       enqueueSnackbar(error.message, { variant: 'warning' });

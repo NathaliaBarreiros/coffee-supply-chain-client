@@ -109,7 +109,7 @@ const UserAdminForm = () => {
       setTxHash(trans.hash);
       dispatch(addTx({ tx: trans.hash, type: 'UserUpdate' }));
       setLoading(false);
-      enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
+      enqueueSnackbar('Transacción pendiente de confirmación en blockchain', { variant: 'info' });
       // const res = await trans.wait();
       // const args = getArgsEvent(res, 'UserUpdate')
     }).catch((error) => {
