@@ -186,7 +186,11 @@ export default function AppWidgetQR({
           // console.log('rol');
           setBatchNew(str[1]);
           setNextActionNew(res.data);
-          dispatch(setMessageExternal(`Código QR válido. Proceda a agregar información de cosecha.`));
+          dispatch(
+            setMessageExternal(
+              `Código QR válido. Proceda a agregar información de la intervención del lote correspondiente.`
+            )
+          );
           dispatch(setReadyToAddExternal(true));
           dispatch(setBatchNoExternal(str[1]));
           dispatch(setUrlExternal(batchNoUrl));
@@ -197,7 +201,9 @@ export default function AppWidgetQR({
     }
 
     if (validBatch) {
-      enqueueSnackbar(`Código QR válido. Proceda a agregar información de cosecha.`, { variant: 'success' });
+      enqueueSnackbar(`Código QR válido. Proceda a agregar información de la intervención del lote correspondiente.`, {
+        variant: 'success',
+      });
     } else {
       enqueueSnackbar(
         `La url ${batchNoUrl} no contiene un número de lote correcto.

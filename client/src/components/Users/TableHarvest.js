@@ -423,7 +423,11 @@ const TableHarvest = () => {
         if (res.data === userData.role) {
           setBatchNew(str[1]);
           setNextActionNew(res.data);
-          dispatch(setMessageExternal(`Código QR válido. Proceda a agregar información de cosecha.`));
+          dispatch(
+            setMessageExternal(
+              `Código QR válido. Proceda a agregar información de la intervención del lote correspondiente.`
+            )
+          );
           dispatch(setReadyToAddExternal(true));
           dispatch(setBatchNoExternal(str[1]));
           dispatch(setUrlExternal(batchNoUrl));
