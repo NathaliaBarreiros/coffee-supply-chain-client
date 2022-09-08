@@ -443,7 +443,7 @@ const MapsTracking = ({
           >
             <Box>
               <Typography variant="subttitle2" className="stage-title">
-                Punto de Venta de Retailer
+                Punto de Venta del Retailer
               </Typography>
               <Typography variant="body2" className="stage-address">
                 {' '}
