@@ -233,7 +233,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
     let arr = [];
 
     if (action === 'FARMER') {
-      arr = ['GRANJA AGREGADA', 'COSECHA'];
+      arr = ['REGISTRO DE GRANJA', 'COSECHA'];
     } else if (action === 'PROCESSOR') {
       arr = ['COSECHA', 'PROCESADO'];
     } else if (action === 'TASTER') {
@@ -251,7 +251,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
     } else if (action === 'RETAILER') {
       arr = ['TRANSPORTE A RETAILER', 'RETAILER'];
     } else if (action === 'DONE') {
-      arr = ['RETAILER', 'TERMINADO'];
+      arr = ['COMERCIALIZACIÓN EN RETAILER', 'TERMINADO'];
     }
     return arr;
   };
