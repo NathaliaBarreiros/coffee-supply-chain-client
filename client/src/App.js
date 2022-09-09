@@ -14,7 +14,7 @@ import UpdateUserListener from './logic/UpdateUser/UpdateUserListener';
 import FarmListener from './logic/AddFarmDetails/FarmListener';
 import HarvestListener from './logic/AddHarvest/HarvestListener';
 import ProcessListener from './logic/AddProcess/ProcessListener';
-import TastingListener from './logic/AddTaster/TasterListener';
+import TasterListener from './logic/AddTaster/TasterListener';
 import CoffeeSellListener from './logic/AddCoffeeSell/CoffeeSellListener';
 import WarehouseListener from './logic/AddWarehouse/WarehouseListener';
 import ShipPackerListener from './logic/AddShipPacker/ShipPackerListener';
@@ -178,7 +178,7 @@ function App() {
     }
   }, [processRegistered, txList]);
 
-  const { tastingRegistered } = TastingListener();
+  const { tastingRegistered } = TasterListener();
   useEffect(() => {
     if (tastingRegistered !== undefined && txIsContain(tastingRegistered.tx, 'DoneTasting')) {
       enqueueSnackbar(
