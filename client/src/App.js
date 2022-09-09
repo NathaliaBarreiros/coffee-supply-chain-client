@@ -178,31 +178,31 @@ function App() {
     }
   }, [processRegistered, txList]);
 
-  const { tastingRegistered } = TasterListener();
+  const { tasterRegistered } = TasterListener();
   useEffect(() => {
-    if (tastingRegistered !== undefined && txIsContain(tastingRegistered.tx, 'DoneTasting')) {
+    if (tasterRegistered !== undefined && txIsContain(tasterRegistered.tx, 'DoneTasting')) {
       enqueueSnackbar(
-        `Datos de catación correspondientes al lote de café ${tastingRegistered.batchNo} agregados correctamente`,
+        `Datos de catación correspondientes al lote de café ${tasterRegistered.batchNo} agregados correctamente`,
         {
           variant: 'success',
         }
       );
-      dispatch(removeTx({ tx: tastingRegistered.tx, type: 'DoneTasting' }));
+      dispatch(removeTx({ tx: tasterRegistered.tx, type: 'DoneTasting' }));
     }
-  }, [tastingRegistered, txList]);
+  }, [tasterRegistered, txList]);
 
-  const { coffeeSellerRegistered } = CoffeeSellListener();
+  const { coffeeSellRegistered } = CoffeeSellListener();
   useEffect(() => {
-    if (coffeeSellerRegistered !== undefined && txIsContain(coffeeSellerRegistered.tx, 'DoneCoffeeSelling')) {
+    if (coffeeSellRegistered !== undefined && txIsContain(coffeeSellRegistered.tx, 'DoneCoffeeSelling')) {
       enqueueSnackbar(
-        `Datos de venta del grano correspondientes al lote de café ${coffeeSellerRegistered.batchNo} agregados correctamente`,
+        `Datos de venta del grano correspondientes al lote de café ${coffeeSellRegistered.batchNo} agregados correctamente`,
         {
           variant: 'success',
         }
       );
-      dispatch(removeTx({ tx: coffeeSellerRegistered.tx, type: 'DoneCoffeeSelling' }));
+      dispatch(removeTx({ tx: coffeeSellRegistered.tx, type: 'DoneCoffeeSelling' }));
     }
-  }, [coffeeSellerRegistered, txList]);
+  }, [coffeeSellRegistered, txList]);
 
   const { warehouseRegistered } = WarehouseListener();
   useEffect(() => {
