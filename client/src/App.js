@@ -257,7 +257,7 @@ function App() {
   useEffect(() => {
     if (retailerRegistered !== undefined && txIsContain(retailerRegistered.tx, 'DoneRetailer')) {
       enqueueSnackbar(
-        `Datos de retailer correspondientes al lote de café ${retailerRegistered.batchNo} agregados correctamente`,
+        `Datos de comercialización en retailer correspondientes al lote de café ${retailerRegistered.batchNo} agregados correctamente`,
         {
           variant: 'success',
         }
