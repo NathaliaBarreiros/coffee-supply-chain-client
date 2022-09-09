@@ -155,7 +155,7 @@ const UserAdminForm = () => {
                               values.profileHash
                                 ? values.profileHash
                                 : // URL.createObjectURL(values.profileHash)
-                                  '/static/mock-images/avatars/farmer2.png'
+                                  '/static/mock-images/avatars/farmer-avatar.png'
                             }
                           />
                         ) : (
@@ -166,7 +166,7 @@ const UserAdminForm = () => {
                               values.profileHash
                                 ? URL.createObjectURL(values.profileHash)
                                 : // URL.createObjectURL(values.profileHash)
-                                  '/static/mock-images/avatars/farmer2.png'
+                                  '/static/mock-images/avatars/farmer-avatar.png'
                             }
                           />
                         )}
