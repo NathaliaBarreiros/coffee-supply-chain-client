@@ -195,7 +195,7 @@ function App() {
   useEffect(() => {
     if (coffeeSellRegistered !== undefined && txIsContain(coffeeSellRegistered.tx, 'DoneCoffeeSelling')) {
       enqueueSnackbar(
-        `Datos de venta del grano correspondientes al lote de café ${coffeeSellRegistered.batchNo} agregados correctamente`,
+        `Datos de venta de café correspondientes al lote de café ${coffeeSellRegistered.batchNo} agregados correctamente`,
         {
           variant: 'success',
         }
