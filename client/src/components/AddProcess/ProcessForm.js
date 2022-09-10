@@ -167,11 +167,11 @@ const ProcessForm = (props) => {
     console.log('ipfs: ', ipfs);
 
     if (values.roastImageHash !== '') {
-      enqueueSnackbar('Guardando Imagen del usuario en red IPFS', { variant: 'info' });
+      enqueueSnackbar('Guardando imagen en la red de IPFS', { variant: 'info' });
       const result = await addFileToIpfs(ipfs, values.roastImageHash);
       console.log('Result', result);
       if (result.error !== null) {
-        enqueueSnackbar('Error al guardar imagen del usuario en red IPFS', { variant: 'error' });
+        enqueueSnackbar('Error al guardar imagen en la red de IPFS', { variant: 'error' });
         setLoading(false);
         return;
       }
