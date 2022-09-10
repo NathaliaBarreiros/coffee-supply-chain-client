@@ -126,18 +126,21 @@ function App() {
   const txList = useSelector(txListSelector);
   const txIsContain = (tx, type) => txList.some((item) => item.tx === tx && item.type === type);
 
-  const { userRegistered } = UserAdminListener();
-  useEffect(() => {
-    if (userRegistered !== undefined && txIsContain(userRegistered.tx, 'UserUpdate')) {
-      console.log('HERE');
-      enqueueSnackbar(`Usuario ${userRegistered.name} agregado correctamente`, { variant: 'success' });
-      dispatch(removeTx({ tx: userRegistered.tx, type: 'UserUpdate' }));
-    }
-  }, [userRegistered, txList]);
+  // const { userRegistered } = UserAdminListener();
+  // useEffect(() => {
+  //   if (userRegistered !== undefined && txIsContain(userRegistered.tx, 'UserUpdate')) {
+  //     console.log('HERE');
+  //     console.log('userregistered', userRegistered);
+  //     console.log('userupdated', userUpdated);
+  //     enqueueSnackbar(`Usuario ${userRegistered.name} agregado correctamente`, { variant: 'success' });
+  //     dispatch(removeTx({ tx: userRegistered.tx, type: 'UserUpdate' }));
+  //   }
+  // }, [userRegistered, txList]);
 
   const { userUpdated } = UpdateUserListener();
   useEffect(() => {
     if (userUpdated !== undefined && txIsContain(userUpdated.tx, 'UserUpdate')) {
+      console.log('userrupdated', userUpdated);
       console.log('MODIFIED');
       enqueueSnackbar(`Información de usuario ${userUpdated.name} modificada correctamente`, { variant: 'success' });
       dispatch(removeTx({ tx: userUpdated.tx, type: 'UserUpdate' }));
