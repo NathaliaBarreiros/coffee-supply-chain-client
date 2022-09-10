@@ -81,7 +81,7 @@ const valSchema = Yup.object().shape({
     .required('Obligatorio')
     .test(
       'fileSize',
-      `Solo se admite archivos menores a ${FILE_SIZE}`,
+      `Solo se admite archivos menores a ${FILE_SIZE} bytes`,
       (value) => value === null || (value && value?.size <= FILE_SIZE)
     )
     .test(
