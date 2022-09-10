@@ -662,7 +662,7 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Puntaje de catación:</div>
+              <div className="mt-5 mb-1 font-semibold">Puntuación de catación [/100]:</div>
               {tasteData.data ? `${parseFloat(tasteData.data.tastingScore)}` : message}
             </div>
             <div className="flex flex-col">

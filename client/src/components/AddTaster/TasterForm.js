@@ -101,7 +101,7 @@ const TasterForm = (props) => {
                       )}
 
                       <Grid item xs={12}>
-                        <TextfieldWrapper name="tastingScore" label="Puntuación de Catación" />
+                        <TextfieldWrapper name="tastingScore" label="Puntuación de Catación [/100]" />
                       </Grid>
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper name="tastingServicePrice" label="Precio del Servicio de Catación [$]" />
