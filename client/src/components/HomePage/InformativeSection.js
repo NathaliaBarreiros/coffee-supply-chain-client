@@ -105,7 +105,7 @@ const InformativeSection = () => {
               <CardContent>
                 <Typography variant="body2" className="about-info">
                   Los contratos inteligentes que permiten realizar el seguimiento del café de especialidad por su cadena
-                  de suministro fueron desplegados en la blockchain de prueba de Rinkeby.
+                  de suministro fueron desplegados en la blockchain de prueba de Goerli.
                 </Typography>
                 <br />
                 <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
@@ -114,7 +114,7 @@ const InformativeSection = () => {
                 <Typography variant="body2" className="about-info" sx={{ marginLeft: 2 }}>
                   <a
                     className="coffee-smart-contract-1 font-bold"
-                    href="https://rinkeby.etherscan.io/address/0xdf0C594655C466B0b37CeFc519f38Ea8fEB465F9#code"
+                    href="https://goerli.etherscan.io/address/0x588774DEd56c4395A4b2115931e2B1379d29980d#code"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -125,7 +125,7 @@ const InformativeSection = () => {
                 <Typography variant="body2" className="about-info" sx={{ marginLeft: 2 }}>
                   <a
                     className="coffee-smart-contract-2 font-bold"
-                    href="https://rinkeby.etherscan.io/address/0xcf76465C29A32F11D6A27a009eE7CB500669c5Ff#code"
+                    href="https://goerli.etherscan.io/address/0x4213D059E4c1a9830BD41a7830082C9cEE95CcbA#code"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -163,7 +163,7 @@ const InformativeSection = () => {
                   >
                     MetaMask
                   </a>
-                  en tu navegador, así como de habilitar la red de prueba de Rinkeby. A continuación, inicia sesión con
+                  en tu navegador, así como de habilitar la red de prueba de Goerli. A continuación, inicia sesión con
                   tu cuenta de billetera MetaMask y accede a la pestaña Dashboard de la aplicación para redireccionarte
                   a tu panel de control.
                 </Typography>

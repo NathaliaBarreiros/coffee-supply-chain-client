@@ -85,9 +85,9 @@ function App() {
   };
 
   useLayoutEffect(() => {
-    const userAddress = '0xbf87Fd7e3416311dbef4F00e2ce73950A0F2a0D2';
-    const coffeAddress1 = '0xdf0C594655C466B0b37CeFc519f38Ea8fEB465F9';
-    const coffeAddress2 = '0xcf76465C29A32F11D6A27a009eE7CB500669c5Ff';
+    const userAddress = '0xB7afe31dD99bC184AEa39F3666B2188e63205aB1';
+    const coffeAddress1 = '0x588774DEd56c4395A4b2115931e2B1379d29980d';
+    const coffeAddress2 = '0x4213D059E4c1a9830BD41a7830082C9cEE95CcbA';
 
     window.userAddress = userAddress;
     window.coffeAddress1 = coffeAddress1;

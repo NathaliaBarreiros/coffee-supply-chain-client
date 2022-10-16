@@ -390,7 +390,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-green-100'}
           icon={'farm1.png'}
           date={farmTx ? unixToYMD(farmTx[2]) : txMessage}
-          url={farmTx ? `https://rinkeby.etherscan.io/tx/${farmTx[1]}` : null}
+          url={farmTx ? `https://goerli.etherscan.io/tx/${farmTx[1]}` : null}
           status={statusList[0]}
         >
           <div className="flex flex-col text-sm">
@@ -400,7 +400,7 @@ const TimeLine = ({ batchNo }) => {
                 <>
                   <div>Administrador</div>
                   <a
-                    href={`https://rinkeby.etherscan.io/address/${userAdmin}`}
+                    href={`https://goerli.etherscan.io/address/${userAdmin}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="user-link"
@@ -458,7 +458,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-green-100'}
           icon={'cosecha.png'}
           date={harvestTx ? unixToYMD(harvestTx[2]) : txMessage}
-          url={harvestTx ? `https://rinkeby.etherscan.io/tx/${harvestTx[1]}` : null}
+          url={harvestTx ? `https://goerli.etherscan.io/tx/${harvestTx[1]}` : null}
           status={statusList[1]}
         >
           <div className="flex flex-col text-sm">
@@ -468,7 +468,7 @@ const TimeLine = ({ batchNo }) => {
                 <>
                   <div>{userHarvest.name ? `${userHarvest.name}` : message}</div>
                   <a
-                    href={`https://rinkeby.etherscan.io/address/${harvestTx[0]}`}
+                    href={`https://goerli.etherscan.io/address/${harvestTx[0]}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="user-link"
@@ -533,7 +533,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-red-100'}
           icon={'proccess.png'}
           date={processTx ? unixToYMD(processTx[2]) : txMessage}
-          url={processTx ? `https://rinkeby.etherscan.io/tx/${processTx[1]}` : null}
+          url={processTx ? `https://goerli.etherscan.io/tx/${processTx[1]}` : null}
           status={statusList[2]}
         >
           <div className="flex flex-col text-sm">
@@ -550,7 +550,7 @@ const TimeLine = ({ batchNo }) => {
                 <>
                   <div>{userProcess.name && processTx[0] ? `${userProcess.name}` : message}</div>
                   <a
-                    href={`https://rinkeby.etherscan.io/address/${processTx[0]}`}
+                    href={`https://goerli.etherscan.io/address/${processTx[0]}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="user-link"
@@ -636,7 +636,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-blue-200'}
           icon={'inspeccion.png'}
           date={tasteTx ? unixToYMD(tasteTx[2]) : message}
-          url={tasteTx ? `https://rinkeby.etherscan.io/tx/${tasteTx[1]}` : null}
+          url={tasteTx ? `https://goerli.etherscan.io/tx/${tasteTx[1]}` : null}
           status={statusList[3]}
         >
           <div className="flex flex-col text-sm">
@@ -646,7 +646,7 @@ const TimeLine = ({ batchNo }) => {
                 <>
                   <div>{userTaste.name && tasteTx[0] ? `${userTaste.name}` : message}</div>
                   <a
-                    href={`https://rinkeby.etherscan.io/address/${tasteTx[0]}`}
+                    href={`https://goerli.etherscan.io/address/${tasteTx[0]}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="user-link"
@@ -691,7 +691,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-blue-200'}
           icon={'sell1.png'}
           date={sellTx ? unixToYMD(sellTx[2]) : txMessage}
-          url={sellTx ? `https://rinkeby.etherscan.io/tx/${sellTx[1]}` : null}
+          url={sellTx ? `https://goerli.etherscan.io/tx/${sellTx[1]}` : null}
           status={statusList[4]}
         >
           <div className="flex flex-col text-sm">
@@ -702,7 +702,7 @@ const TimeLine = ({ batchNo }) => {
                   <>
                     <div>{userSell.name && sellTx[0] ? `${userSell.name}` : message}</div>
                     <a
-                      href={`https://rinkeby.etherscan.io/address/${sellTx[0]}`}
+                      href={`https://goerli.etherscan.io/address/${sellTx[0]}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="user-link"
@@ -748,7 +748,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-blue-200'}
           icon={'aglomerado.png'}
           date={warehouseTx ? unixToYMD(warehouseTx[2]) : txMessage}
-          url={warehouseTx ? `https://rinkeby.etherscan.io/tx/${warehouseTx[1]}` : null}
+          url={warehouseTx ? `https://goerli.etherscan.io/tx/${warehouseTx[1]}` : null}
           status={statusList[5]}
         >
           <div className="flex flex-col text-sm">
@@ -758,7 +758,7 @@ const TimeLine = ({ batchNo }) => {
                 <>
                   <div>{userWarehouse.name && warehouseTx[0] ? `${userWarehouse.name}` : message}</div>
                   <a
-                    href={`https://rinkeby.etherscan.io/address/${warehouseTx[0]}`}
+                    href={`https://goerli.etherscan.io/address/${warehouseTx[0]}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="user-link"
@@ -827,7 +827,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-blue-200'}
           icon={'transporte.png'}
           date={shipPackerTx ? unixToYMD(shipPackerTx[2]) : txMessage}
-          url={shipPackerTx ? `https://rinkeby.etherscan.io/tx/${shipPackerTx[1]}` : null}
+          url={shipPackerTx ? `https://goerli.etherscan.io/tx/${shipPackerTx[1]}` : null}
           status={statusList[6]}
         >
           <div className="flex flex-col text-sm">
@@ -837,7 +837,7 @@ const TimeLine = ({ batchNo }) => {
                 <>
                   <div>{userShipPacker.name && shipPackerTx[0] ? `${userShipPacker.name}` : message}</div>
                   <a
-                    href={`https://rinkeby.etherscan.io/address/${shipPackerTx[0]}`}
+                    href={`https://goerli.etherscan.io/address/${shipPackerTx[0]}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="user-link"
@@ -890,7 +890,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-blue-200'}
           icon={'empacado.png'}
           date={packerTx ? unixToYMD(packerTx[2]) : txMessage}
-          url={packerTx ? `https://rinkeby.etherscan.io/tx/${packerTx[1]}` : null}
+          url={packerTx ? `https://goerli.etherscan.io/tx/${packerTx[1]}` : null}
           status={statusList[7]}
         >
           <div className="flex flex-col text-sm">
@@ -900,7 +900,7 @@ const TimeLine = ({ batchNo }) => {
                 <>
                   <div>{userPacker.name && packerTx[0] ? `${userPacker.name}` : message}</div>
                   <a
-                    href={`https://rinkeby.etherscan.io/address/${packerTx[0]}`}
+                    href={`https://goerli.etherscan.io/address/${packerTx[0]}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="user-link"
@@ -969,7 +969,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-blue-200'}
           icon={'transporte.png'}
           date={shipRetailerTx ? unixToYMD(shipRetailerTx[2]) : txMessage}
-          url={shipRetailerTx ? `https://rinkeby.etherscan.io/tx/${shipRetailerTx[1]}` : null}
+          url={shipRetailerTx ? `https://goerli.etherscan.io/tx/${shipRetailerTx[1]}` : null}
           status={statusList[8]}
         >
           <div className="flex flex-col text-sm">
@@ -979,7 +979,7 @@ const TimeLine = ({ batchNo }) => {
                 <>
                   <div>{userShipRetailer.name && shipRetailerTx[0] ? `${userShipRetailer.name}` : message}</div>
                   <a
-                    href={`https://rinkeby.etherscan.io/address/${shipRetailerTx[0]}`}
+                    href={`https://goerli.etherscan.io/address/${shipRetailerTx[0]}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="user-link"
@@ -1032,7 +1032,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-blue-200'}
           icon={'retailer.png'}
           date={retailerTx ? unixToYMD(retailerTx[2]) : txMessage}
-          url={retailerTx ? `https://rinkeby.etherscan.io/tx/${retailerTx[1]}` : null}
+          url={retailerTx ? `https://goerli.etherscan.io/tx/${retailerTx[1]}` : null}
           status={statusList[9]}
         >
           <div className="flex flex-col text-sm">
@@ -1042,7 +1042,7 @@ const TimeLine = ({ batchNo }) => {
                 <>
                   <div>{userRetailer.name && retailerTx[0] ? `${userRetailer.name}` : message}</div>
                   <a
-                    href={`https://rinkeby.etherscan.io/address/${retailerTx[0]}`}
+                    href={`https://goerli.etherscan.io/address/${retailerTx[0]}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="user-link"

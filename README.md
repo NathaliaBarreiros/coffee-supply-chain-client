@@ -74,7 +74,7 @@ git push dirección_SSH_repositorio_GitHub
 
 ---
 
-Para utlizar la aplicación web a través de la URL de [CoffeeTrack](https://coffeetrack.vercel.app/home), se debe tener instalada la extensión de [MetaMask](https://metamask.io/download/) en el navegador web y habilitar la testnet de [Rinkeby](https://umbria.network/connect/ethereum-testnet-rinkeby).
+Para utlizar la aplicación web a través de la URL de [CoffeeTrack](https://coffeetrack.vercel.app/home), se debe tener instalada la extensión de [MetaMask](https://metamask.io/download/) en el navegador web y habilitar la testnet de [Goerli](https://blog.cryptostars.is/goerli-g%C3%B6rli-testnet-network-to-metamask-and-receiving-test-ethereum-in-less-than-2-min-de13e6fe5677).
 
 #### Página Inicio
 
@@ -375,7 +375,7 @@ Para utlizar la aplicación web a través de la URL de [CoffeeTrack](https://cof
 
 ---
 
-Se puede acceder a la página de un [lote ejemplo](https://coffeetrack.vercel.app/tracking?batch=0x513641dde4553AB3D171a90C0166935a70CB2047).
+Se puede acceder a la página de un [lote ejemplo](https://coffeetrack.vercel.app/tracking?batch=0x68c37dD00940BEb553BC8ADc1071a4568fEDC793).
 
 <p align="center">
   <img src="client/public/screens/loteej1.png" align="center"/>
