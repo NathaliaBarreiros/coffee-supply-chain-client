@@ -74,7 +74,7 @@ git push dirección_SSH_repositorio_GitHub
 
 ---
 
-Para utlizar la aplicación web a través de la URL de [CoffeeTrack](https://coffeetrack.vercel.app/home), se debe tener instalada la extensión de [MetaMask](https://metamask.io/download/) en el navegador web y habilitar la testnet de [Goerli](https://blog.cryptostars.is/goerli-g%C3%B6rli-testnet-network-to-metamask-and-receiving-test-ethereum-in-less-than-2-min-de13e6fe5677).
+Para utlizar la aplicación web a través de la URL de [CoffeeTrack](https://coffeetrack.vercel.app/home), se debe tener instalada la extensión de [MetaMask](https://metamask.io/download/) en el navegador web y habilitar la testnet de [Goerli](https://umbria.network/connect/ethereum-testnet-goerli).
 
 #### Página Inicio
 
